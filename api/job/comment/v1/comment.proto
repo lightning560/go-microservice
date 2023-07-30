@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option go_package = "redbook/api/job/comment/v1;jobcommentv1";
+
+package job.comment.v1;
+
+import "third_party/proto/gogoproto/gogo.proto";
+import "third_party/proto/validate/validate.proto";
+
+
+
+message CommentMessage {
+    enum Type {
+        ADDREPLY = 0;
+        ADDLIKE = 1;
+    }
+    Type type = 1;
+    int64 reply_id = 2;
+    int64 uid = 3;
+    int64 owner_uid = 4;
+    int64 subject_id = 5 [(gogoproto.jsontag) = "subject_id" ,(validate.rules).int64 = {gt: 0}];
+	string biz_type = 6 [(gogoproto.jsontag) = "biz_type"];
+    int64 floor_id = 7 [(gogoproto.jsontag) = "floor_id"];
+	int64 at_uid =8 [(gogoproto.jsontag) = "at_uid"];
+    string content = 9 [(gogoproto.jsontag) = "content"];
+}
+
+message AddLikeMessage{
+    int64 reply_id = 1;
+    int64 uid = 2;
+}
+
+message AddReplyMessage{
+    int64 subject_id = 1 [(gogoproto.jsontag) = "subject_id" ,(validate.rules).int64 = {gt: 0}];
+	string biz_type = 2 [(gogoproto.jsontag) = "biz_type"];
+    int64 owner_uid = 3;
+    int64 floor_id = 4 [(gogoproto.jsontag) = "floor_id"];
+	int64 at_uid =5 [(gogoproto.jsontag) = "at_uid"];
+    string content = 6 [(gogoproto.jsontag) = "content"];
+    bool is_floor = 7 [(gogoproto.jsontag) = "is_floor"];
+}

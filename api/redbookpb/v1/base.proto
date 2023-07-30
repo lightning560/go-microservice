@@ -1,0 +1,170 @@
+syntax = "proto3";
+
+option go_package = "redbook/api/redbookpb/v1;basev1";
+
+package redbookpb.v1;
+
+import "third_party/proto/validate/validate.proto";
+// import "google/protobuf/any.proto";
+import "third_party/proto/google/api/field_behavior.proto";
+import "third_party/proto/protoc-gen-openapiv2/options/annotations.proto";
+
+message Image{
+    // @gotags: json:"id"
+    int64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+		{
+			description: "id",
+			default: "0",
+			type: INTEGER,
+		},
+		(google.api.field_behavior) = REQUIRED,
+		(validate.rules).int64 = {
+			gte: 0
+		}];
+    string url = 2 [(validate.rules).string.max_len = 200];
+    string hash = 3;
+    string name = 4 [(validate.rules).string.max_len = 200];
+    // @gotags: json:"size_kb"
+    int32 size_kb = 5;
+    // @gotags: json:"width"
+    int32 width = 6;
+    // @gotags: json:"height"
+    int32 height = 7;
+    int64 created_at = 8[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+		{
+			description: "created_at",
+			default: "0",
+			type: INTEGER,
+		},
+		(google.api.field_behavior) = REQUIRED,
+		(validate.rules).int64 = {
+			gte: 0
+		}];
+}
+
+message Video{
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+		{
+			description: "id",
+			default: "0",
+			type: INTEGER,
+		},
+		(validate.rules).int64 = {
+			gte: 0
+		}];
+    string url = 2 [(validate.rules).string.max_len = 200];
+    string type = 3 [(validate.rules).string.max_len = 20];
+    Image cover = 4;
+    string hash = 5;
+    string name = 6 [(validate.rules).string.max_len = 200];
+    // @gotags: json:"size_kb"
+    int32 size_kb = 7;
+    // @gotags: json:"width"
+    int32 width = 8;
+    // @gotags: json:"height"
+    int32 height = 9;
+    // @gotags: json:"length"
+    int32 length = 10;
+    int64 created_at =11 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+    {
+        description: "created_at",
+        default: "0",
+        type: INTEGER,
+    },
+    (validate.rules).int64 = {
+        gte: 0
+    }];
+}
+
+message Tag{
+    int64 tag_id = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+    {
+        description: "tag_id",
+        default: "0",
+        type: INTEGER,
+    },
+    (validate.rules).int64 = {
+        gte: 0
+    }];
+    string name = 2 [(validate.rules).string.max_len = 200];
+    string biz_type = 3 [(validate.rules).string.max_len = 20];
+    // int64 created_at = 4;
+}
+
+message UserInfo {
+    int64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+    {
+        description: "id",
+        default: "0",
+        type: INTEGER,
+    },
+    (validate.rules).int64 = {
+        gte: 0
+    }];
+    int64 uid = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+    {
+        description: "uid",
+        default: "0",
+        type: INTEGER,
+    },
+    (validate.rules).int64 = {
+        gte: 0
+    }];
+    string name = 3;
+    // @gotags: json:"sex"
+    int32 sex = 4 ;
+    Image avatar = 5 ;
+    // @gotags: json:"sign"
+    string sign = 6;
+    // @gotags: json:"state"
+    int32 state = 7 ;
+    // @gotags: json:"level"
+    int32 level = 8 ;
+}
+
+message Pagination{
+    // @gotags: json:"page"
+    int32 page = 1 [(validate.rules).int32.gt = 0];
+    // @gotags: json:"size"
+    int32 size = 2 [(validate.rules).int32.gt = 0];
+}
+
+message Cursor{
+	// @gotags: json:"offset"
+    int32 offset = 1 [(validate.rules).int32.gte = 0];
+    // @gotags: json:"limit"
+    int32 limit = 2 [(validate.rules).int32.gt = 0];
+}
+
+// enum SortOrder{
+//     asc = 0;
+//     desc = 1;
+// }
+message Sort{
+    string by = 1 [(validate.rules).string.max_len = 20];
+    string order = 2 [(validate.rules).string.max_len = 20];
+}
+
+message Filter{
+    string by = 1;
+    string value = 2;
+}
+
+// message Response {
+//     int32 code = 1;
+//     string message = 2;
+//     google.protobuf.Any data =3;
+// }
+
+message EmptyResponse {
+}
+message BoolResponse {
+    bool result = 1;
+}

@@ -1,0 +1,467 @@
+syntax = "proto3";
+
+package interface.mall.v1;
+
+option go_package = "redbook/api/interface/mall/v1;interfacemallv1";
+
+import "third_party/proto/gogoproto/gogo.proto";
+import "third_party/proto/google/api/annotations.proto";
+// import "third_party/proto/google/api/http.proto";
+import "third_party/proto/validate/validate.proto";
+// import "google/protobuf/empty.proto";
+// import "google/protobuf/timestamp.proto";
+// import "google/protobuf/any.proto";
+// import "third_party/proto/google/api/field_behavior.proto";
+import "third_party/proto/protoc-gen-openapiv2/options/annotations.proto";
+import "redbookpb/v1/base.proto";
+
+
+message Shop{
+    string id = 1 ;//int64
+    string uid = 2; //int64
+    string name = 3;
+    //gotags: json:"sign"
+    string sign = 4;
+    redbookpb.v1.Image logo = 5;
+    //gotags: json:"state"
+    int32 state = 6;
+    //gotags: json:"created_at"
+    int64 created_at = 7;
+
+}
+message Product{
+    string id = 1;//int64
+    string shop_id = 2;//int64
+    string name = 3;
+    string title = 4;
+    //gotags: json:"price"
+    int64 price = 5;
+    redbookpb.v1.Image thumb = 6;
+    repeated redbookpb.v1.Image images = 7;
+    redbookpb.v1.Video video = 8;
+    repeated redbookpb.v1.Image overview = 9;
+    string specs = 10;
+    repeated redbookpb.v1.Tag tags = 11;
+    int32 Inventory = 12;
+    //gotags: json:"state"
+    int32 state = 13;
+    int64 created_at = 14;
+    int64 updated_at = 15;
+    //gotags: json:"publish_at"
+    int64 publish_at = 16;
+    //gotags: json:"version"
+    int32 version = 17;
+}
+message CreateProduct{
+    int64 shop_id = 1;
+    string name = 2;
+    string title = 3;
+    int64 price = 4;
+    redbookpb.v1.Image thumb = 5;
+    repeated redbookpb.v1.Image images = 6;
+    redbookpb.v1.Video video = 7;
+    repeated redbookpb.v1.Image overview = 8;
+    string specs = 9;
+    repeated redbookpb.v1.Tag tags = 10;
+    int32 Inventory = 11;
+    int64 publish_at = 12;
+}
+message ProductCard{
+    string id = 1;//int64
+    string shop_id = 2;//int64
+    string name = 3;
+    string title = 4;
+    //gotags: json:"price"
+    int64 price = 5;
+    redbookpb.v1.Image thumb = 6;
+    redbookpb.v1.Video video = 7;
+    repeated redbookpb.v1.Tag tags = 8;
+    //gotags: json:"state"
+    int32 state = 9;
+    int64 publish_at = 10;
+    //gotags: json:"version"
+    int32 version = 11;
+}
+
+message Sku{
+    int32 index =1;
+    string name =2;
+    string product_id = 3;//int64
+    Product product = 4;
+}
+message SkuOnlyId{
+    int32 index =1;
+    string name =2;
+    int64 product_id =3;//int64
+}
+message Collection{
+    string id = 1;//int64
+    string shop_id = 2;//int64
+    string name = 3;
+    string title = 4;
+    redbookpb.v1.Image cover = 5;
+    redbookpb.v1.Video video = 6;
+    repeated redbookpb.v1.Tag tags = 7;
+    //gotags: json:"state"
+    int32 state = 8; // 0: draft, 1: published, 2: deleted
+    int64 created_at = 9;
+    int64 updated_at = 10;
+    int64 publish_at = 11;
+    int32 version = 12;
+    repeated Sku skus = 13;
+}
+message CreateCollection{
+    int64 shop_id = 1;
+    string name = 2;
+    string title = 3;
+    redbookpb.v1.Image cover = 4;
+    redbookpb.v1.Video video = 5;
+    repeated redbookpb.v1.Tag tags = 6;
+    int64 publish_at = 7;
+    repeated SkuOnlyId skus_only_id = 8;
+}
+message CollectionCard{
+    string id =1 ; //int64
+    string shop_id = 2;//int64
+    string name = 3;
+    string title = 4;
+    redbookpb.v1.Image cover = 5;
+    redbookpb.v1.Video video = 6;
+    repeated redbookpb.v1.Tag tags = 7;
+    //gotags: json:"state"
+    int32 state = 8;
+    //gotags: json:"version"
+    int32 version = 9;
+    int64 publish_at = 10;
+    string product_id = 11;//int64
+    ProductCard product_card = 12;
+}
+message CartItem{
+    int64 id = 1;
+    int64 uid = 2;
+    int64 collection_id = 3;
+    int64 product_id = 4;
+    int32 quantity = 5;
+    int64 created_at =6;
+    int64 updated_at =  7;
+    ProductCard product_card = 8;
+}
+
+message CreateShopRequest  {
+    int64 uid = 1;
+    string name = 2;
+    redbookpb.v1.Image logo = 4;
+    string sign = 5;
+}
+
+message CreateShopResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        string id = 1;//int64
+    }
+    Data data = 3;
+}
+
+message GetShopByIdRequest {
+    int64 id = 1;
+}
+message GetShopByIdResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        Shop shop = 1;
+    }
+    Data data = 3;
+}
+
+message CreateProductRequest{
+    CreateProduct create_product = 1;
+}
+
+message CreateProductResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        string id = 1;//int64
+    }
+    Data data = 3;
+
+}
+
+message GetProductByIdRequest{
+    int64 id = 1;
+}
+message GetProductByIdResponse{
+
+    int32 code =1;
+    string message = 2;
+    message Data{
+        Product product = 1;
+    }
+    Data data = 3;
+}
+
+message CreateCollectionRequest{
+    int64 shop_id = 1;
+    string name = 2;
+    string title = 3;
+    redbookpb.v1.Image cover = 4;
+    redbookpb.v1.Video video = 5;
+    repeated redbookpb.v1.Tag tags = 6;
+    int64 publish_at = 7;
+    repeated SkuOnlyId skus_only_id = 8;
+}
+message CreateCollectionResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        string id = 1;//int64
+    }
+    Data data = 3;
+}
+
+message GetCollectionByIdRequest{
+    int64 id = 1;
+}
+message GetCollectionByIdResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        Collection collection = 1;
+    }
+    Data data = 3;
+}
+
+message GetCollectionCardByIdRequest{
+    int64 id = 1;
+}
+message GetCollectionCardByIdResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        CollectionCard collection_card = 1;
+    }
+    Data data = 3;
+}
+
+message ListCollectionCardByIdsRequest{
+    message id {
+        string id = 1;
+    }
+    repeated string ids = 1;
+}
+message ListCollectionCardByIdsResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        repeated CollectionCard collection_cards = 1;
+    }
+    Data data = 3;
+}
+
+message ListCollectionCardByShopIdRequest{
+    int64 id = 1;
+    int32 state = 2;
+    redbookpb.v1.Cursor cursor = 3;
+    redbookpb.v1.Sort sort = 4;
+}
+message ListCollectionCardByShopIdResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        repeated CollectionCard collection_cards = 1;
+    }
+    Data data = 3;
+}
+
+message UpdateCollectionSkuRequest{
+    int64 id = 1;
+    repeated SkuOnlyId skus_only_id = 2;
+}
+
+message UpdateCollectionSkuResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+    }
+    Data data = 3;
+}
+
+message UpdateCollectionStateRequest{
+    int64 id = 1;
+    int32 state = 2;
+}
+
+message UpdateCollectionStateResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+    }
+    Data data = 3;
+}
+
+message CreateCartItemRequest{
+    int64 id = 1;
+    int64 uid = 2;
+    int64 collection_id = 3;
+    int64 product_id = 4;
+    int32 quantity = 5;
+}
+
+message CreateCartItemResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        int64 id = 1;
+    }
+    Data data = 3;
+}
+
+message GetCartItemByIdRequest{
+    int64 id = 1;
+}
+
+message GetCartItemByIdResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        CartItem cart_item = 1;
+    }
+    Data data = 3;
+}
+
+message UpdateCartItemQuantityRequest{
+    int64 id = 1;
+    int32 quantity = 2;
+}
+message UpdateCartItemQuantityResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+    }
+    Data data = 3;
+}
+message DeleteCartItemRequest{
+    int64 id = 1;
+}
+message DeleteCartItemResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+    }
+    Data data = 3;
+}
+message ListCartItemByUidRequest{
+    int64 uid = 1;
+}
+
+message ListCartItemByUidResponse{
+    int32 code =1;
+    string message = 2;
+    message Data{
+        repeated CartItem cart_items = 1;
+    }
+    Data data = 3;
+}
+
+service MallInferface{
+    rpc CreateShop(CreateShopRequest) returns (CreateShopResponse){
+        option (google.api.http) = {
+            post: "/v1/mall/shop"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "创建shop" // swagger 接口名称
+            description: "创建shop" // swagger 接口描述
+            tags: "shop" // swagger 标签
+            schemes: [HTTP, HTTPS],
+        };
+    }
+    rpc GetShopById(GetShopByIdRequest) returns (GetShopByIdResponse){
+        option (google.api.http) = {
+            get: "/v1/mall/shop/{id}"
+        };
+    }
+
+    rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse){
+        option (google.api.http) = {
+            post: "/v1/mall/product"
+            body: "*"
+        };
+    }
+    rpc GetProductById(GetProductByIdRequest) returns (GetProductByIdResponse){
+        option (google.api.http) = {
+            get: "/v1/mall/product/{id}"
+        };
+    }
+    rpc CreateCollection(CreateCollectionRequest) returns (CreateCollectionResponse){
+        option (google.api.http) = {
+            post: "/v1/mall/collection"
+            body: "*"
+        };
+    }
+    rpc GetCollectionById(GetCollectionByIdRequest) returns (GetCollectionByIdResponse){
+        option (google.api.http) = {
+            get: "/v1/mall/collection/{id}"
+        };
+    }
+    rpc GetCollectionCardById(GetCollectionCardByIdRequest) returns (GetCollectionCardByIdResponse){
+        option (google.api.http) = {
+            get: "/v1/mall/collection/card/{id}"
+        };
+    }
+
+    rpc ListCollectionCardByIds(ListCollectionCardByIdsRequest) returns (ListCollectionCardByIdsResponse){
+        option (google.api.http) = {
+            get: "/v1/mall/collection/cards"
+        };
+    }
+
+    rpc ListCollectionCardByShopId(ListCollectionCardByShopIdRequest) returns (ListCollectionCardByShopIdResponse){
+        option (google.api.http) = {
+            get: "/v1/mall/collection/shop/{id}"
+        };
+    }
+    rpc UpdateCollectionSku(UpdateCollectionSkuRequest) returns (UpdateCollectionSkuResponse){
+        option (google.api.http) = {
+            put: "/v1/mall/collection/sku"
+            body: "*"
+        };
+    }
+    rpc UpdateCollectionState(UpdateCollectionStateRequest) returns (UpdateCollectionStateResponse){
+        option (google.api.http) = {
+            put: "/v1/mall/collection/state"
+            body: "*"
+        };
+    }
+
+    rpc CreateCartItem(CreateCartItemRequest) returns (CreateCartItemResponse){
+        option (google.api.http) = {
+            post: "/v1/mall/cart/item"
+            body: "*"
+        };
+    }
+
+    rpc GetCartItemById(GetCartItemByIdRequest) returns (GetCartItemByIdResponse){
+        option (google.api.http) = {
+            get: "/v1/mall/cart/item/{id}"
+        };
+    }
+    rpc UpdateCartItemQuantity(UpdateCartItemQuantityRequest) returns (UpdateCartItemQuantityResponse){
+        option (google.api.http) = {
+            put: "/v1/mall/cart/item"
+            body: "*"
+        };
+    }
+    rpc DeleteCartItem(DeleteCartItemRequest) returns (DeleteCartItemResponse){
+        option (google.api.http) = {
+            delete: "/v1/mall/cart/item/{id}"
+        };
+    }
+    rpc ListCartItemByUid(ListCartItemByUidRequest) returns (ListCartItemByUidResponse){
+        option (google.api.http) = {
+            get: "/v1/mall/cart/user/{uid}"
+        };
+    }
+}

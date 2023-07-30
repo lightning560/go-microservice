@@ -1,0 +1,1197 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "interface/comment/v1/comment.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "CommentInterface"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/comment/floors/{id}/{cursor.offset}/{cursor.limit}/{sort.by}/{sort.order}": {
+      "get": {
+        "summary": "ListFloorBySubject\n@param sort_by : reply is reply_count,time is created_at",
+        "operationId": "CommentInterface_ListFloorBySubject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListFloorBySubjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64",
+            "default": "0"
+          },
+          {
+            "name": "cursor.offset",
+            "description": "@gotags: json:\"offset\"",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "cursor.limit",
+            "description": "@gotags: json:\"limit\"",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort.by",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sort.order",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CommentInterface"
+        ]
+      }
+    },
+    "/v1/comment/like": {
+      "delete": {
+        "operationId": "CommentInterface_CancelLike",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CancelLikeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "replyId",
+            "description": "reply_id\n\nreply_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "default": "0"
+          },
+          {
+            "name": "uid",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CommentInterface"
+        ]
+      },
+      "post": {
+        "operationId": "CommentInterface_AddLike",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddLikeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AddLikeReq"
+            }
+          }
+        ],
+        "tags": [
+          "CommentInterface"
+        ]
+      }
+    },
+    "/v1/comment/like/is": {
+      "get": {
+        "operationId": "CommentInterface_IsLike",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1IsLikeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "replyId",
+            "description": "reply_id\n\nreply_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "default": "0"
+          },
+          {
+            "name": "uid",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CommentInterface"
+        ]
+      }
+    },
+    "/v1/comment/replies/{floorId}/{cursor.offset}/{cursor.limit}/{sort.by}/{sort.order}": {
+      "get": {
+        "summary": "ListReplyByFloor\n@param sort_by : like is like_count,time is created_at",
+        "operationId": "CommentInterface_ListReplyByFloor",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListReplyByFloorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "floorId",
+            "description": "floor_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64",
+            "default": "0"
+          },
+          {
+            "name": "cursor.offset",
+            "description": "@gotags: json:\"offset\"",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "cursor.limit",
+            "description": "@gotags: json:\"limit\"",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort.by",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sort.order",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "subjectId",
+            "description": "subject_id\n\nsubject_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "default": "0"
+          }
+        ],
+        "tags": [
+          "CommentInterface"
+        ]
+      }
+    },
+    "/v1/comment/reply": {
+      "post": {
+        "operationId": "CommentInterface_CreateReply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateReplyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateReplyReq"
+            }
+          }
+        ],
+        "tags": [
+          "CommentInterface"
+        ]
+      }
+    },
+    "/v1/comment/subject": {
+      "post": {
+        "operationId": "CommentInterface_CreateSubject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateSubjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateSubjectReq"
+            }
+          }
+        ],
+        "tags": [
+          "CommentInterface"
+        ]
+      }
+    },
+    "/v1/comment/subject/belong": {
+      "get": {
+        "operationId": "CommentInterface_GetSubjectByBelong",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSubjectByBelongResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "belongId",
+            "description": "belong_id\n\nbelong_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "default": "0"
+          },
+          {
+            "name": "bizType",
+            "description": "biz_type\n\nbiz_type",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "STRING"
+          }
+        ],
+        "tags": [
+          "CommentInterface"
+        ]
+      }
+    },
+    "/v1/comment/subject/{subjectId}": {
+      "get": {
+        "operationId": "CommentInterface_GetSubjectById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSubjectByIdResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subjectId",
+            "description": "subject_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64",
+            "default": "0"
+          }
+        ],
+        "tags": [
+          "CommentInterface"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AddLikeReq": {
+      "type": "object",
+      "properties": {
+        "replyId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "reply_id",
+          "title": "reply_id",
+          "required": [
+            "replyId"
+          ]
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "required": [
+        "replyId"
+      ]
+    },
+    "v1AddLikeResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1AddLikeResponseData"
+        }
+      }
+    },
+    "v1AddLikeResponseData": {
+      "type": "object"
+    },
+    "v1CancelLikeResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1CancelLikeResponseData"
+        }
+      }
+    },
+    "v1CancelLikeResponseData": {
+      "type": "object"
+    },
+    "v1CreateReplyReq": {
+      "type": "object",
+      "properties": {
+        "isFloor": {
+          "type": "boolean",
+          "default": "false",
+          "description": "is_floor",
+          "title": "is_floor",
+          "required": [
+            "isFloor"
+          ]
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64"
+        },
+        "subjectId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "subject_id",
+          "title": "subject_id",
+          "required": [
+            "subjectId"
+          ]
+        },
+        "bizType": {
+          "type": "string",
+          "default": "STRING",
+          "description": "biz_type",
+          "title": "biz_type",
+          "required": [
+            "bizType"
+          ]
+        },
+        "floorId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "floor_id",
+          "title": "floor_id",
+          "required": [
+            "floorId"
+          ]
+        },
+        "content": {
+          "type": "string"
+        },
+        "atUid": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "at_uid",
+          "title": "at_uid"
+        }
+      },
+      "required": [
+        "isFloor",
+        "subjectId",
+        "bizType",
+        "floorId"
+      ]
+    },
+    "v1CreateReplyResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1CreateReplyResponseData"
+        }
+      }
+    },
+    "v1CreateReplyResponseData": {
+      "type": "object",
+      "properties": {
+        "replyId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateSubjectReq": {
+      "type": "object",
+      "properties": {
+        "belongId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "belong_id",
+          "required": [
+            "belongId"
+          ]
+        },
+        "bizType": {
+          "type": "string",
+          "default": "STRING",
+          "description": "biz_type",
+          "title": "biz_type",
+          "required": [
+            "bizType"
+          ]
+        },
+        "ownerUid": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "owner_uid",
+          "title": "owner_uid",
+          "required": [
+            "ownerUid"
+          ]
+        }
+      },
+      "required": [
+        "belongId",
+        "bizType",
+        "ownerUid"
+      ]
+    },
+    "v1CreateSubjectResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1CreateSubjectResponseData"
+        }
+      }
+    },
+    "v1CreateSubjectResponseData": {
+      "type": "object",
+      "properties": {
+        "subjectId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Cursor": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"offset\""
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"limit\""
+        }
+      }
+    },
+    "v1Floor": {
+      "type": "object",
+      "properties": {
+        "rootReply": {
+          "type": "object",
+          "$ref": "#/definitions/v1Reply",
+          "default": "0",
+          "description": "root_reply",
+          "title": "root_reply"
+        },
+        "replies": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/v1Reply"
+          },
+          "default": "0",
+          "description": "replies",
+          "title": "replies"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"total\""
+        },
+        "cursor": {
+          "$ref": "#/definitions/v1Cursor"
+        }
+      }
+    },
+    "v1FloorAttr": {
+      "type": "object",
+      "properties": {
+        "replyCount": {
+          "type": "number",
+          "format": "int32",
+          "default": "0",
+          "description": "reply_count",
+          "title": "reply_count",
+          "required": [
+            "replyCount"
+          ]
+        },
+        "pinAdmin": {
+          "type": "number",
+          "format": "int32",
+          "default": "0",
+          "description": "pin_admin",
+          "title": "pin_admin"
+        },
+        "pinOwner": {
+          "type": "number",
+          "format": "int32",
+          "default": "0",
+          "description": "pin_owner",
+          "title": "pin_owner"
+        },
+        "fold": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"fold\""
+        },
+        "hot": {
+          "type": "boolean",
+          "title": "@gotags: json:\"hot\""
+        }
+      },
+      "required": [
+        "replyCount"
+      ]
+    },
+    "v1GetSubjectByBelongResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1GetSubjectByBelongResponseData"
+        }
+      }
+    },
+    "v1GetSubjectByBelongResponseData": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "$ref": "#/definitions/v1Subject"
+        }
+      }
+    },
+    "v1GetSubjectByIdResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1GetSubjectByIdResponseData"
+        }
+      }
+    },
+    "v1GetSubjectByIdResponseData": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "$ref": "#/definitions/v1Subject"
+        }
+      }
+    },
+    "v1Image": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "id",
+          "title": "@gotags: json:\"id\"",
+          "required": [
+            "id"
+          ]
+        },
+        "url": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sizeKb": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"size_kb\""
+        },
+        "width": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"width\""
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"height\""
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "created_at",
+          "required": [
+            "createdAt"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "createdAt"
+      ]
+    },
+    "v1IsLikeResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1IsLikeResponseData"
+        }
+      }
+    },
+    "v1IsLikeResponseData": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean",
+          "title": "@gotags: json:\"result\""
+        }
+      }
+    },
+    "v1ListFloorBySubjectResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ListFloorBySubjectResponseData"
+        }
+      }
+    },
+    "v1ListFloorBySubjectResponseData": {
+      "type": "object",
+      "properties": {
+        "floors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Floor"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"total\""
+        },
+        "cursor": {
+          "$ref": "#/definitions/v1Cursor"
+        }
+      }
+    },
+    "v1ListReplyByFloorResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ListReplyByFloorResponseData"
+        }
+      }
+    },
+    "v1ListReplyByFloorResponseData": {
+      "type": "object",
+      "properties": {
+        "replies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Reply"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"total\""
+        },
+        "cursor": {
+          "$ref": "#/definitions/v1Cursor"
+        }
+      }
+    },
+    "v1Reply": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "ownerUid": {
+          "type": "integer",
+          "default": "0",
+          "description": "owner_uid",
+          "title": "owner_uid",
+          "required": [
+            "ownerUid"
+          ]
+        },
+        "subjectId": {
+          "type": "integer",
+          "default": "0",
+          "description": "subject_id",
+          "title": "subject_id",
+          "required": [
+            "subjectId"
+          ]
+        },
+        "bizType": {
+          "type": "string",
+          "default": "0",
+          "description": "biz_type",
+          "title": "biz_type",
+          "required": [
+            "bizType"
+          ]
+        },
+        "floorId": {
+          "type": "integer",
+          "default": "0",
+          "description": "floor_id",
+          "title": "floor_id",
+          "required": [
+            "floorId"
+          ]
+        },
+        "content": {
+          "type": "string"
+        },
+        "atUid": {
+          "type": "integer",
+          "default": "0",
+          "description": "at_uid",
+          "title": "at_uid",
+          "required": [
+            "atUid"
+          ]
+        },
+        "state": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"state\""
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "created_at",
+          "title": "created_at"
+        },
+        "updatedAt": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "updated_at",
+          "title": "updated_at"
+        },
+        "deleted": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"deleted\""
+        },
+        "likeCount": {
+          "type": "number",
+          "format": "int32",
+          "default": "0",
+          "description": "like_count",
+          "title": "like_count"
+        },
+        "dislikeCount": {
+          "type": "number",
+          "format": "int32",
+          "default": "0",
+          "description": "dislike_count",
+          "title": "dislike_count"
+        },
+        "dialog": {
+          "type": "string",
+          "format": "int64"
+        },
+        "fanGrade": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"fan_grade\""
+        },
+        "platform": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "device": {
+          "type": "string"
+        },
+        "attr": {
+          "type": "string",
+          "format": "int64"
+        },
+        "floorAttr": {
+          "type": "object",
+          "$ref": "#/definitions/v1FloorAttr",
+          "default": "0",
+          "description": "floor_attr",
+          "title": "floor_attr"
+        },
+        "userInfo": {
+          "type": "object",
+          "$ref": "#/definitions/v1UserInfo",
+          "default": "0",
+          "description": "user_info",
+          "title": "user_info"
+        },
+        "atUserInfo": {
+          "$ref": "#/definitions/v1UserInfo"
+        }
+      },
+      "required": [
+        "ownerUid",
+        "subjectId",
+        "bizType",
+        "floorId",
+        "atUid"
+      ]
+    },
+    "v1Sort": {
+      "type": "object",
+      "properties": {
+        "by": {
+          "type": "string"
+        },
+        "order": {
+          "type": "string"
+        }
+      },
+      "title": "enum SortOrder{\n    asc = 0;\n    desc = 1;\n}"
+    },
+    "v1Subject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "default": "0",
+          "description": "id",
+          "required": [
+            "id"
+          ]
+        },
+        "ownerUid": {
+          "type": "integer",
+          "default": "0",
+          "description": "owner_uid",
+          "title": "owner_uid",
+          "required": [
+            "ownerUid"
+          ]
+        },
+        "belongId": {
+          "type": "integer",
+          "default": "0",
+          "description": "belong_id",
+          "title": "belong_id",
+          "required": [
+            "belongId"
+          ]
+        },
+        "bizType": {
+          "type": "string",
+          "default": "0",
+          "description": "biz_type",
+          "title": "biz_type",
+          "required": [
+            "bizType"
+          ]
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "created_at",
+          "title": "created_at"
+        },
+        "updatedAt": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "updated_at",
+          "title": "updated_at"
+        },
+        "floorCount": {
+          "type": "number",
+          "format": "int32",
+          "default": "0",
+          "description": "floor_count",
+          "title": "floor_count",
+          "required": [
+            "floorCount"
+          ]
+        },
+        "replyCount": {
+          "type": "number",
+          "format": "int32",
+          "default": "0",
+          "description": "reply_count",
+          "title": "reply_count",
+          "required": [
+            "replyCount"
+          ]
+        },
+        "state": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"state\""
+        },
+        "attr": {
+          "type": "string",
+          "format": "int64",
+          "title": "@gotags: json:\"attr\""
+        },
+        "meta": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "ownerUid",
+        "belongId",
+        "bizType",
+        "floorCount",
+        "replyCount"
+      ]
+    },
+    "v1UserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "id"
+        },
+        "uid": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "uid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"sex\""
+        },
+        "avatar": {
+          "$ref": "#/definitions/v1Image"
+        },
+        "sign": {
+          "type": "string",
+          "title": "@gotags: json:\"sign\""
+        },
+        "state": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"state\""
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"level\""
+        }
+      }
+    }
+  }
+}

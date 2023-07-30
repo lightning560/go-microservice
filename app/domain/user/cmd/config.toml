@@ -1,0 +1,23 @@
+[mio.server.grpc.user]
+    port = 59001
+# [mio.etcdv3.default]
+#     endpoints = ["127.0.0.1:2379"]
+#     connectTimeout = "10s"
+#     secure = false
+# [mio.registry.test]
+#     configKey = "mio.etcdv3.default"
+#     timeout = "5s"
+# 	service_ttl = "5s"
+#     scheme = "etcd" # grpc resolver默认scheme为"etcd"，可以自行修改
+#     #serviceTTL = "10s"
+[mio.server.governor]
+    host = "0.0.0.0"
+    port = 19001
+[mio.trace.mysql.write]
+    dns = "root:password@tcp(127.0.0.1:13306)/account?timeout=2s&readTimeout=2s&writeTimeout=2s&parseTime=true&loc=Local&charset=utf8mb4,utf8"
+[redis.dev]
+    debug = true # mio增加redis debug，打开后可以看到，配置名、地址、耗时、请求数据、响应数据
+    addr = "127.0.0.1:6379"
+    enableAccessInterceptor = true
+    enableAccessInterceptorReq = true
+    enableAccessInterceptorRes = true

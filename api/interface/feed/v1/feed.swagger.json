@@ -1,0 +1,1168 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "interface/feed/v1/feed.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "FeedInterface"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/feed/cards": {
+      "get": {
+        "operationId": "FeedInterface_ListPostCardByIds",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListPostCardByIdsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "FeedInterface"
+        ]
+      }
+    },
+    "/v1/feed/cards/{cursor.offset}/{cursor.limit}/{sort.by}/{sort.order}": {
+      "get": {
+        "operationId": "FeedInterface_ListPostCard",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListPostCardResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "cursor.offset",
+            "description": "@gotags: json:\"offset\"",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "cursor.limit",
+            "description": "@gotags: json:\"limit\"",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort.by",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sort.order",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      }
+    },
+    "/v1/feed/favor": {
+      "delete": {
+        "operationId": "FeedInterface_CancelFavor",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CancelFavorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "uid",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      },
+      "post": {
+        "operationId": "FeedInterface_AddFavor",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddFavorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AddFavorReq"
+            }
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      }
+    },
+    "/v1/feed/like": {
+      "delete": {
+        "operationId": "FeedInterface_CancelLike",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CancelLikeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "uid",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      },
+      "post": {
+        "operationId": "FeedInterface_AddLike",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddFavorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AddLikeReq"
+            }
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      }
+    },
+    "/v1/feed/post": {
+      "post": {
+        "operationId": "FeedInterface_CreatePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreatePostResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreatePostReq"
+            }
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      }
+    },
+    "/v1/feed/post/{id}": {
+      "get": {
+        "operationId": "FeedInterface_GetPostById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetPostByIdResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      },
+      "delete": {
+        "operationId": "FeedInterface_DeletePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeletePostResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      },
+      "put": {
+        "operationId": "FeedInterface_UpdatePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdatePostPostResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "cover": {
+                  "$ref": "#/definitions/v1Image"
+                },
+                "images": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1Image"
+                  }
+                },
+                "video": {
+                  "$ref": "#/definitions/v1Video"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      }
+    },
+    "/v1/feed/share": {
+      "delete": {
+        "operationId": "FeedInterface_CancelShare",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CancelFavorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "uid",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      },
+      "post": {
+        "operationId": "FeedInterface_AddShare",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddFavorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AddShareReq"
+            }
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      }
+    },
+    "/v1/feed/videos/{cursor.offset}/{cursor.limit}/{sort.by}/{sort.order}": {
+      "get": {
+        "operationId": "FeedInterface_ListVideoPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListVideoPostResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "cursor.offset",
+            "description": "@gotags: json:\"offset\"",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "cursor.limit",
+            "description": "@gotags: json:\"limit\"",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort.by",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sort.order",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FeedInterface"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ListPostCardByIdsReqId": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "redbookpbv1Tag": {
+      "type": "object",
+      "properties": {
+        "tagId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "tag_id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "bizType": {
+          "type": "string"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AddFavorReq": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1AddFavorResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1AddFavorResponseData"
+        }
+      }
+    },
+    "v1AddFavorResponseData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1AddLikeReq": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1AddShareReq": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1CancelFavorResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1CancelFavorResponseData"
+        }
+      }
+    },
+    "v1CancelFavorResponseData": {
+      "type": "object"
+    },
+    "v1CancelLikeResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1CancelLikeResponseData"
+        }
+      }
+    },
+    "v1CancelLikeResponseData": {
+      "type": "object"
+    },
+    "v1CreatePostReq": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/redbookpbv1Tag"
+          }
+        },
+        "cover": {
+          "$ref": "#/definitions/v1Image"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Image"
+          }
+        },
+        "video": {
+          "$ref": "#/definitions/v1Video"
+        }
+      }
+    },
+    "v1CreatePostResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1CreatePostResponseData"
+        }
+      }
+    },
+    "v1CreatePostResponseData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Cursor": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"offset\""
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"limit\""
+        }
+      }
+    },
+    "v1DeletePostResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1DeletePostResponseData"
+        }
+      }
+    },
+    "v1DeletePostResponseData": {
+      "type": "object"
+    },
+    "v1GetPostByIdResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1GetPostByIdResponseData"
+        }
+      }
+    },
+    "v1GetPostByIdResponseData": {
+      "type": "object",
+      "properties": {
+        "post": {
+          "$ref": "#/definitions/v1Post"
+        }
+      }
+    },
+    "v1Image": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "id",
+          "title": "@gotags: json:\"id\"",
+          "required": [
+            "id"
+          ]
+        },
+        "url": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sizeKb": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"size_kb\""
+        },
+        "width": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"width\""
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"height\""
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "created_at",
+          "required": [
+            "createdAt"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "createdAt"
+      ]
+    },
+    "v1ListPostCardByIdsResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ListPostCardByIdsResponseData"
+        }
+      }
+    },
+    "v1ListPostCardByIdsResponseData": {
+      "type": "object",
+      "properties": {
+        "postCards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PostCard"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"total\""
+        },
+        "cursor": {
+          "$ref": "#/definitions/v1Cursor"
+        }
+      }
+    },
+    "v1ListPostCardResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ListPostCardResponseData"
+        }
+      }
+    },
+    "v1ListPostCardResponseData": {
+      "type": "object",
+      "properties": {
+        "postCards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PostCard"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"total\""
+        },
+        "cursor": {
+          "$ref": "#/definitions/v1Cursor"
+        }
+      }
+    },
+    "v1ListVideoPostResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ListVideoPostResponseData"
+        }
+      }
+    },
+    "v1ListVideoPostResponseData": {
+      "type": "object",
+      "properties": {
+        "posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Post"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"total\""
+        },
+        "cursor": {
+          "$ref": "#/definitions/v1Cursor"
+        }
+      }
+    },
+    "v1Post": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "int64 id = 1 [(validate.rules).int64.gt = 0];"
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "cover": {
+          "$ref": "#/definitions/v1Image"
+        },
+        "type": {
+          "type": "string"
+        },
+        "video": {
+          "$ref": "#/definitions/v1Video"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Image"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/redbookpbv1Tag"
+          }
+        },
+        "state": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"state\""
+        },
+        "likeCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"like_count\""
+        },
+        "shareCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"share_count\""
+        },
+        "favorCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"favor_count\""
+        },
+        "viewCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"view_count\""
+        },
+        "commentId": {
+          "type": "string"
+        },
+        "authorInfo": {
+          "$ref": "#/definitions/v1UserInfo"
+        }
+      }
+    },
+    "v1PostCard": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "cover": {
+          "$ref": "#/definitions/v1Image"
+        },
+        "likeCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"like_count\""
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/redbookpbv1Tag"
+          }
+        },
+        "state": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"state\""
+        },
+        "authorInfo": {
+          "$ref": "#/definitions/v1UserInfo"
+        }
+      }
+    },
+    "v1Sort": {
+      "type": "object",
+      "properties": {
+        "by": {
+          "type": "string"
+        },
+        "order": {
+          "type": "string"
+        }
+      },
+      "title": "enum SortOrder{\n    asc = 0;\n    desc = 1;\n}"
+    },
+    "v1UpdatePostPostResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1UpdatePostPostResponseData"
+        }
+      }
+    },
+    "v1UpdatePostPostResponseData": {
+      "type": "object"
+    },
+    "v1UserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "id"
+        },
+        "uid": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "uid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"sex\""
+        },
+        "avatar": {
+          "$ref": "#/definitions/v1Image"
+        },
+        "sign": {
+          "type": "string",
+          "title": "@gotags: json:\"sign\""
+        },
+        "state": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"state\""
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"level\""
+        }
+      }
+    },
+    "v1Video": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "id"
+        },
+        "url": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "cover": {
+          "$ref": "#/definitions/v1Image"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sizeKb": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"size_kb\""
+        },
+        "width": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"width\""
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"height\""
+        },
+        "length": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: json:\"length\""
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "created_at"
+        }
+      }
+    }
+  }
+}

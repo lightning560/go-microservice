@@ -1,0 +1,684 @@
+syntax = "proto3";
+
+option go_package = "redbook/api/interface/comment/v1;commentv1";
+option java_multiple_files = true;
+option java_package = "api.interface.comment.v1";
+option java_outer_classname = "commentProto";
+
+package interface.comment.v1;
+
+import "third_party/proto/gogoproto/gogo.proto";
+import "third_party/proto/validate/validate.proto";
+import "third_party/proto/google/api/annotations.proto";
+import "third_party/proto/google/api/field_behavior.proto";
+import "third_party/proto/protoc-gen-openapiv2/options/annotations.proto";
+
+import "redbookpb/v1/base.proto";
+
+message Subject{
+    string id =1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+		{
+			description: "id",
+			default: "0",
+			type: INTEGER,
+		},
+		(google.api.field_behavior) = REQUIRED,
+		(validate.rules).string = {
+			max_len: 32
+		}
+	];
+	string owner_uid=2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+		{
+			title: "owner_uid",
+			description: "owner_uid",
+			default: "0",
+			type: INTEGER,
+		},
+		(google.api.field_behavior) = REQUIRED,
+		(validate.rules).string = {
+			max_len: 32
+		}
+	];
+	string belong_id =3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "belong_id",
+		description: "belong_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).string = {
+		max_len: 32
+	}
+	];
+	string biz_type =4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "biz_type",
+		description: "biz_type",
+		default: "0",
+		type: STRING,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).string = {
+		max_len: 32
+	}
+	];
+	// gotags: json:"created_at"
+	int64 created_at =5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "created_at",
+		description: "created_at",
+		default: "0",
+		type: INTEGER,
+	},
+	(validate.rules).int64 = {
+		gte: 0
+	}
+	];
+	// gotags: json:"updated_at"
+	int64 updated_at =6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "updated_at",
+		description: "updated_at",
+		default: "0",
+		type: INTEGER,
+	},
+	(validate.rules).int64 = {
+		gte: 0
+	}
+	];
+	// @gotags: json:"floor_count"
+	int32 floor_count=7[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "floor_count",
+		description: "floor_count",
+		default: "0",
+		type: NUMBER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int32 = {
+		gte: 0
+	}
+	];
+	// @gotags: json:"reply_count"
+	int32 reply_count =8[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "reply_count",
+		description: "reply_count",
+		default: "0",
+		type: NUMBER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int32 = {
+		gte: 0
+	}
+	];
+	// @gotags: json:"state"
+	int32 state =9;
+	// @gotags: json:"attr"
+	int64 attr=10;
+	string meta=11;
+}
+message FloorAttr{
+	// @gotags: json:"reply_count"
+	int32 reply_count = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "reply_count",
+		description: "reply_count",
+		default: "0",
+		type: NUMBER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int32 = {
+		gte: 0
+	}
+	];
+	// @gotags: json:"pin_admin"
+	int32 pin_admin = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "pin_admin",
+		description: "pin_admin",
+		default: "0",
+		type: NUMBER,
+	},
+	(validate.rules).int32 = {
+		gte: 0
+	}
+	];
+	// @gotags: json:"pin_owner"
+	int32 pin_owner = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "pin_owner",
+		description: "pin_owner",
+		default: "0",
+		type: NUMBER,
+	},
+	(validate.rules).int32 = {
+		gte: 0
+	}
+	];
+	// @gotags: json:"fold"
+	int32 fold = 4;
+	// @gotags: json:"hot"
+	bool hot = 5;
+}
+message Reply{
+    string id = 1;
+	string owner_uid = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+		{
+			title: "owner_uid",
+			description: "owner_uid",
+			default: "0",
+			type: INTEGER,
+		},
+		(google.api.field_behavior) = REQUIRED,
+		(validate.rules).string = {
+			max_len: 32
+		}];
+	string subject_id = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "subject_id",
+		description: "subject_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).string = {
+		max_len: 32
+	}];
+	string biz_type = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "biz_type",
+		description: "biz_type",
+		default: "0",
+		type: STRING,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).string = {
+		max_len: 32
+	}];
+	// @gotags: json:"floor_id"
+    string floor_id = 5 [
+		(gogoproto.jsontag) = "floor_id",
+		(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "floor_id",
+		description: "floor_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).string = {
+		max_len: 32
+	}];
+	string content = 6 [(gogoproto.jsontag) = "content"];
+	// @gotags: json:"at_uid"
+	string at_uid =7 [(gogoproto.jsontag) = "at_uid",
+		(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+		{
+			title: "at_uid",
+			description: "at_uid",
+			default: "0",
+			type: INTEGER,
+		},
+		(google.api.field_behavior) = REQUIRED,
+		(validate.rules).string = {
+			max_len: 32
+		}];
+	// @gotags: json:"state"
+    int32 state = 8 [(gogoproto.jsontag) = "state"];
+	// @gotags: json:"created_at"
+	int64 created_at =9 [(gogoproto.jsontag) = "created_at",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "created_at",
+		description: "created_at",
+		default: "0",
+		type: INTEGER,
+	},
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+	// @gotags: json:"updated_at"
+	int64 updated_at =10 [(gogoproto.jsontag) = "updated_at",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "updated_at",
+		description: "updated_at",
+		default: "0",
+		type: INTEGER,
+	},
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+	// @gotags: json:"deleted"
+	int32 deleted =11 [(gogoproto.jsontag) = "deleted"];
+	// @gotags: json:"like_count"
+    int32 like_count = 12[(gogoproto.jsontag) = "like_count",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "like_count",
+		description: "like_count",
+		default: "0",
+		type: NUMBER,
+	},
+	(validate.rules).int32 = {
+		gte: 0
+	}];
+	// @gotags: json:"dislike_count"
+    int32 dislike_count = 13[(gogoproto.jsontag) = "dislike_count",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "dislike_count",
+		description: "dislike_count",
+		default: "0",
+		type: NUMBER,
+	},
+	(validate.rules).int32 = {
+		gte: 0
+	}];
+
+	int64 dialog = 14 [(gogoproto.jsontag) = "dialog"];
+	// @gotags: json:"fan_grade"
+    int32 fan_grade = 15 [(gogoproto.jsontag) = "fan_grade"];
+    int32 platform = 16 [(gogoproto.jsontag) = "platform"];
+    string device = 17 [(gogoproto.jsontag) = "device "];
+	int64 attr =18 [(gogoproto.jsontag) = "attr"];
+	FloorAttr floor_attr = 19 [(gogoproto.jsontag) = "floor_attr",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "floor_attr",
+		description: "floor_attr",
+		default: "0",
+		type: OBJECT,
+	}];
+	redbookpb.v1.UserInfo user_info = 20 [(gogoproto.jsontag) = "user_info",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "user_info",
+		description: "user_info",
+		default: "0",
+		type: OBJECT,
+	}];
+	redbookpb.v1.UserInfo at_user_info =21;
+}
+
+message Floor {
+	Reply root_reply = 1[(gogoproto.jsontag) = "root_reply",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "root_reply",
+		description: "root_reply",
+		default: "0",
+		type: OBJECT,
+	}];
+	repeated Reply replies = 2[(gogoproto.jsontag) = "replies",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "replies",
+		description: "replies",
+		default: "0",
+		type: OBJECT,
+	}];
+	// @gotags: json:"total"
+	int32 total = 3;
+	redbookpb.v1.Cursor cursor = 4;
+}
+
+message CreateSubjectReq{
+	int64 belong_id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+		{
+			description: "belong_id",
+			default: "0",
+			type: INTEGER,
+		},
+		(google.api.field_behavior) = REQUIRED,
+		(validate.rules).int64 = {
+			gte: 0
+		}];
+	string biz_type = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+		{
+			title: "biz_type",
+			description: "biz_type",
+			default: "STRING",
+			type: STRING,
+		},
+		(google.api.field_behavior) = REQUIRED,
+		(validate.rules).string = {
+			max_len: 32
+		}];
+	int64 owner_uid = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+		{
+			title: "owner_uid",
+			description: "owner_uid",
+			default: "0",
+			type: INTEGER,
+		},
+		(google.api.field_behavior) = REQUIRED,
+		(validate.rules).int64 = {
+			gte: 0
+		}];
+}
+
+message CreateSubjectResponse{
+	int32 code = 1;
+	string message = 2;
+	message Data {
+		string subject_id = 1;
+	}
+	Data data = 3;
+}
+
+message GetSubjectByIdReq{
+	int64 subject_id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "subject_id",
+		description: "subject_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+}
+message GetSubjectByIdResponse {
+	int32 code = 1;
+	string message = 2;
+	message Data {
+		Subject subject = 1;
+	}
+	Data data = 3;
+}
+
+message GetSubjectByBelongReq{
+	int64 belong_id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "belong_id",
+		description: "belong_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+	string biz_type = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "biz_type",
+		description: "biz_type",
+		default: "STRING",
+		type: STRING,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).string = {
+		max_len: 32
+	}];
+}
+message GetSubjectByBelongResponse {
+	int32 code = 1;
+	string message = 2;
+	message Data {
+		Subject subject = 1;
+	}
+	Data data = 3;
+}
+message CreateReplyReq{
+	bool is_floor =1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "is_floor",
+		description: "is_floor",
+		default: "false",
+		type: BOOLEAN,
+	},
+	(google.api.field_behavior) = REQUIRED
+	];
+	int64 uid = 2;
+	int64 subject_id = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "subject_id",
+		description: "subject_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+	string biz_type = 4 [(gogoproto.jsontag) = "biz_type",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "biz_type",
+		description: "biz_type",
+		default: "STRING",
+		type: STRING,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).string = {
+		max_len: 32
+	}];
+    int64 floor_id = 5 [(gogoproto.jsontag) = "floor_id",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "floor_id",
+		description: "floor_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+	string content = 6 [(gogoproto.jsontag) = "content"];
+	int64 at_uid =7 [(gogoproto.jsontag) = "at_uid",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "at_uid",
+		description: "at_uid",
+		default: "0",
+		type: INTEGER,
+	},
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+}
+
+message CreateReplyResponse{
+	int32 code = 1;
+	string message = 2;
+	message Data {
+		string reply_id = 1;
+	}
+	Data data = 3;
+}
+message ListFloorBySubjectReq {
+    int64 id = 1 [(gogoproto.jsontag) = "id",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "id",
+		description: "id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+	redbookpb.v1.Cursor cursor =2;
+	redbookpb.v1.Sort sort =3;
+}
+message ListFloorBySubjectResponse{
+	int32 code = 1;
+	string message = 2;
+	message Data {
+		repeated Floor floors = 1;
+		// @gotags: json:"total"
+		int32 total = 2;
+		redbookpb.v1.Cursor cursor =3;
+	}
+	Data data = 3;
+}
+message ListReplyByFloorReq{
+	int64 subject_id =1[(gogoproto.jsontag) = "subject_id",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "subject_id",
+		description: "subject_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+    int64 floor_id = 2[(gogoproto.jsontag) = "floor_id",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "floor_id",
+		description: "floor_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+	redbookpb.v1.Cursor cursor =3;
+	redbookpb.v1.Sort sort =4;
+}
+message ListReplyByFloorResponse{
+	int32 code = 1;
+	string message = 2;
+	message Data {
+		repeated Reply replies =1;
+		// @gotags: json:"total"
+		int32 total = 2;
+		redbookpb.v1.Cursor cursor =3;
+	}
+	Data data = 3;
+}
+message AddLikeReq{
+	int64 reply_id = 1[(gogoproto.jsontag) = "reply_id",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "reply_id",
+		description: "reply_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+	int64 uid = 2;
+}
+message AddLikeResponse{
+	int32 code = 1;
+	string message = 2;
+	message Data {
+	}
+	Data data = 3;
+}
+message CancelLikeReq{
+	int64 reply_id = 1[(gogoproto.jsontag) = "reply_id",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "reply_id",
+		description: "reply_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+	int64 uid = 2;
+}
+message CancelLikeResponse{
+	int32 code = 1;
+	string message = 2;
+	message Data {
+	}
+	Data data = 3;
+}
+message IsLikeReq{
+	int64 reply_id = 1[(gogoproto.jsontag) = "reply_id",
+	(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) =
+	{
+		title: "reply_id",
+		description: "reply_id",
+		default: "0",
+		type: INTEGER,
+	},
+	(google.api.field_behavior) = REQUIRED,
+	(validate.rules).int64 = {
+		gte: 0
+	}];
+	int64 uid = 2;
+}
+message IsLikeResponse{
+
+	int32 code = 1;
+	string message = 2;
+	message Data {
+		// @gotags: json:"result"
+		bool result = 1;
+	}
+	Data data = 3;
+}
+
+service CommentInterface{
+	rpc CreateSubject(CreateSubjectReq) returns (CreateSubjectResponse){
+        option (google.api.http) = {
+            post: "/v1/comment/subject"
+            body: "*"
+        };
+    };
+	rpc GetSubjectById(GetSubjectByIdReq) returns (GetSubjectByIdResponse){
+        option (google.api.http) = {
+            get: "/v1/comment/subject/{subject_id}"
+        };
+    };
+	rpc GetSubjectByBelong(GetSubjectByBelongReq) returns (GetSubjectByBelongResponse){
+        option (google.api.http) = {
+            get: "/v1/comment/subject/belong"
+        };
+    };
+	rpc CreateReply(CreateReplyReq) returns (CreateReplyResponse){
+        option (google.api.http) = {
+            post: "/v1/comment/reply"
+            body: "*"
+        };
+    };
+
+	// ListFloorBySubject
+	// @param sort_by : reply is reply_count,time is created_at
+	rpc ListFloorBySubject(ListFloorBySubjectReq) returns (ListFloorBySubjectResponse){
+		option (google.api.http) = {
+			get: "/v1/comment/floors/{id}/{cursor.offset}/{cursor.limit}/{sort.by}/{sort.order}"
+		};
+	};
+	// ListReplyByFloor
+	// @param sort_by : like is like_count,time is created_at
+	rpc ListReplyByFloor(ListReplyByFloorReq) returns (ListReplyByFloorResponse){
+		option (google.api.http) = {
+			get: "/v1/comment/replies/{floor_id}/{cursor.offset}/{cursor.limit}/{sort.by}/{sort.order}"
+		};
+	};
+	rpc AddLike(AddLikeReq) returns (AddLikeResponse){
+		option (google.api.http) = {
+			post: "/v1/comment/like"
+			body: "*"
+		};
+	};
+	rpc CancelLike(CancelLikeReq) returns (CancelLikeResponse){
+		option (google.api.http) = {
+			delete: "/v1/comment/like"
+		};
+	};
+	rpc IsLike(IsLikeReq) returns (IsLikeResponse){
+		option (google.api.http) = {
+			get: "/v1/comment/like/is"
+		};
+	};
+}

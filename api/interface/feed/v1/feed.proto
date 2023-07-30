@@ -1,0 +1,323 @@
+syntax = "proto3";
+
+package interface.feed.v1;
+
+import "third_party/proto/gogoproto/gogo.proto";
+import "third_party/proto/google/api/annotations.proto";
+// import "third_party/proto/google/api/http.proto";
+import "third_party/proto/validate/validate.proto";
+// import "google/protobuf/empty.proto";
+// import "google/protobuf/timestamp.proto";
+// import "google/protobuf/any.proto";
+import "redbookpb/v1/base.proto";
+
+option go_package = "redbook/api/interface/feed/v1;interfacefeedv1";
+
+message Post {
+    // int64 id = 1 [(validate.rules).int64.gt = 0];
+    string id =1;//int64
+    int64 uid = 2;
+    string title = 3 [(validate.rules).string.max_len = 100];
+    string content = 4 [(validate.rules).string.max_len = 500];
+    int64 created_at = 5 ;
+    int64 updated_at = 6 ;
+    redbookpb.v1.Image cover = 7 ;
+    string type = 8 [(validate.rules).string.max_len = 20];
+    redbookpb.v1.Video video = 9 ;
+    repeated redbookpb.v1.Image images = 10;
+    repeated redbookpb.v1.Tag tags = 11;
+    // @gotags: json:"state"
+    int32 state = 12;
+    // @gotags: json:"like_count"
+    int32 like_count = 13;
+    // @gotags: json:"share_count"
+    int32 share_count = 14;
+    // @gotags: json:"favor_count"
+    int32 favor_count = 15;
+    // @gotags: json:"view_count"
+    int32 view_count = 16;
+    string comment_id = 17;
+
+    redbookpb.v1.UserInfo author_info = 18;
+}
+
+message PostCard{
+    string id = 1;
+    int64 uid = 2;// int64
+    string type = 3 [(validate.rules).string.max_len = 20];
+    string title = 4 [(validate.rules).string.max_len = 100];
+    redbookpb.v1.Image cover = 5;
+    // @gotags: json:"like_count"
+    int32 like_count = 6;
+    repeated redbookpb.v1.Tag tags = 7;
+    // @gotags: json:"state"
+    int32 state = 8;
+
+    redbookpb.v1.UserInfo author_info = 9;
+}
+
+message CreatePostReq{
+    int64 uid = 1;
+    string title = 2;
+    string content = 3;
+    string type = 4;
+    repeated redbookpb.v1.Tag tags = 5;
+    redbookpb.v1.Image cover = 6;
+    repeated redbookpb.v1.Image images = 7;
+    redbookpb.v1.Video video = 8;
+}
+message CreatePostResponse {
+    int32 code = 1;
+    string message = 2;
+    message Data{
+        string id = 1  ;
+    }
+    Data data = 3;
+}
+
+message GetPostByIdReq {
+    int64 id = 1;
+}
+message GetPostByIdResponse {
+    int32 code = 1;
+    string message = 2;
+    message Data{
+        Post post = 1  [(gogoproto.jsontag) = "post"];
+    }
+    Data data = 3;
+}
+
+message ListPostCardReq{
+    redbookpb.v1.Cursor cursor = 1;
+    redbookpb.v1.Sort sort = 2;
+}
+
+message ListPostCardResponse{
+    int32 code = 1;
+    string message = 2;
+    message Data{
+        repeated PostCard post_cards = 1;
+        // @gotags: json:"total"
+        int32 total = 2;
+        redbookpb.v1.Cursor cursor = 3;
+    }
+    Data data = 3;
+}
+message ListPostCardByIdsReq{
+    message Id{
+        int64 id = 1;
+    }
+    repeated Id ids = 1;
+}
+
+message ListPostCardByIdsResponse{
+    int32 code = 1;
+    string message = 2;
+    message Data{
+        repeated PostCard post_cards = 1;
+        // @gotags: json:"total"
+        int32 total = 2;
+        redbookpb.v1.Cursor cursor = 3;
+    }
+    Data data = 3;
+}
+
+message UpdatePostReq{
+    int64 id = 1  [(gogoproto.jsontag) = "id",(validate.rules).int64.gt = 0];
+    string title = 2;
+    string content = 3;
+    string type = 4;
+    redbookpb.v1.Image cover = 5;
+    repeated redbookpb.v1.Image images = 6;
+    redbookpb.v1.Video video = 7;
+}
+
+message UpdatePostPostResponse {
+    int32 code = 1;
+    string message = 2;
+    message Data{
+    }
+    Data data = 3;
+}
+
+message DeletePostReq {
+    int64 id = 1  [(gogoproto.jsontag) = "id",(validate.rules).int64.gt = 0];
+}
+
+message DeletePostResponse {
+    int32 code = 1;
+    string message = 2;
+    message Data{
+    }
+    Data data = 3;
+}
+
+message ListVideoPostReq{
+    redbookpb.v1.Cursor cursor = 1;
+    redbookpb.v1.Sort sort = 2;
+}
+
+message ListVideoPostResponse{
+    int32 code = 1;
+    string message = 2;
+    message Data{
+        repeated Post posts = 1;
+        // @gotags: json:"total"
+        int32 total = 2;
+        redbookpb.v1.Cursor cursor = 3;
+    }
+    Data data = 3;
+
+}
+
+message AddLikeReq {
+    int64 post_id = 1  [(gogoproto.jsontag) = "post_id",(validate.rules).int64.gt = 0];
+    int64 uid = 2  [(gogoproto.jsontag) = "uid",(validate.rules).int64.gt = 0];
+}
+message AddLikeResponse {
+    int32 code = 1;
+    string message = 2;
+    message Data{
+    }
+    Data data = 3;
+}
+
+message CancelLikeReq {
+    int64 post_id = 1  [(gogoproto.jsontag) = "post_id",(validate.rules).int64.gt = 0];
+    int64 uid = 2  [(gogoproto.jsontag) = "uid",(validate.rules).int64.gt = 0];
+}
+
+message CancelLikeResponse {
+    int32 code = 1;
+    string message = 2;
+    message Data{
+    }
+    Data data = 3;
+}
+
+message AddShareReq {
+    int64 post_id = 1  [(gogoproto.jsontag) = "post_id",(validate.rules).int64.gt = 0];
+    int64 uid = 2  [(gogoproto.jsontag) = "uid",(validate.rules).int64.gt = 0];
+}
+message AddShareResponse {
+    int32 code = 1;
+    string message = 2;
+    message Data{
+        int64 id = 1  [(gogoproto.jsontag) = "id",(validate.rules).int64.gt = 0];
+    }
+    Data data = 3;
+}
+
+message CancelShareReq {
+    int64 post_id = 1  [(gogoproto.jsontag) = "post_id",(validate.rules).int64.gt = 0];
+    int64 uid = 2  [(gogoproto.jsontag) = "uid",(validate.rules).int64.gt = 0];
+}
+message CancelShareResponse {
+    int32 code = 1;
+    string message = 2;
+    message Data{
+    }
+    Data data = 3;
+}
+
+message AddFavorReq {
+    int64 post_id = 1  [(gogoproto.jsontag) = "post_id",(validate.rules).int64.gt = 0];
+    int64 uid = 2  [(gogoproto.jsontag) = "uid",(validate.rules).int64.gt = 0];
+}
+
+message AddFavorResponse {
+    int32 code = 1;
+    string message = 2;
+    message Data{
+        int64 id = 1  [(gogoproto.jsontag) = "id",(validate.rules).int64.gt = 0];
+    }
+    Data data = 3;
+}
+
+
+message CancelFavorReq {
+    int64 post_id = 1  [(gogoproto.jsontag) = "post_id",(validate.rules).int64.gt = 0];
+    int64 uid = 2  [(gogoproto.jsontag) = "uid",(validate.rules).int64.gt = 0];
+}
+
+message CancelFavorResponse {
+    int32 code = 1;
+    string message = 2;
+    message Data{
+    }
+    Data data = 3;
+}
+
+service FeedInterface{
+    rpc CreatePost(CreatePostReq) returns (CreatePostResponse){
+        option (google.api.http) = {
+            post: "/v1/feed/post"
+            body: "*"
+        };
+    }
+    rpc GetPostById(GetPostByIdReq) returns (GetPostByIdResponse){
+        option (google.api.http) = {
+            get: "/v1/feed/post/{id}"
+        };
+    }
+
+    rpc ListPostCard(ListPostCardReq) returns (ListPostCardResponse){
+        option (google.api.http) = {
+            get: "/v1/feed/cards/{cursor.offset}/{cursor.limit}/{sort.by}/{sort.order}"
+        };
+    }
+    rpc ListPostCardByIds(ListPostCardByIdsReq) returns (ListPostCardByIdsResponse){
+        option (google.api.http) = {
+            get: "/v1/feed/cards"
+        };
+    }
+    rpc UpdatePost(UpdatePostReq) returns (UpdatePostPostResponse){
+        option (google.api.http) = {
+            put: "/v1/feed/post/{id}"
+            body: "*"
+        };
+    }
+    rpc DeletePost(DeletePostReq) returns (DeletePostResponse){
+        option (google.api.http) = {
+            delete: "/v1/feed/post/{id}"
+        };
+    }
+    rpc ListVideoPost(ListVideoPostReq) returns (ListVideoPostResponse){
+        option (google.api.http) = {
+            get: "/v1/feed/videos/{cursor.offset}/{cursor.limit}/{sort.by}/{sort.order}"
+        };
+    }
+    rpc AddLike(AddLikeReq) returns (AddFavorResponse){
+        option (google.api.http) = {
+            post: "/v1/feed/like"
+            body: "*"
+        };
+    }
+    rpc CancelLike(CancelLikeReq) returns (CancelLikeResponse){
+        option (google.api.http) = {
+            delete: "/v1/feed/like"
+        };
+    }
+    rpc AddShare(AddShareReq) returns (AddFavorResponse){
+        option (google.api.http) = {
+            post: "/v1/feed/share"
+            body: "*"
+        };
+    }
+    rpc CancelShare(CancelShareReq) returns (CancelFavorResponse){
+        option (google.api.http) = {
+            delete: "/v1/feed/share"
+        };
+    }
+    rpc AddFavor(AddFavorReq) returns (AddFavorResponse){
+        option (google.api.http) = {
+            post: "/v1/feed/favor"
+            body: "*"
+        };
+    }
+    rpc CancelFavor(CancelFavorReq) returns (CancelFavorResponse){
+        option (google.api.http) = {
+            delete: "/v1/feed/favor"
+        };
+    }
+}

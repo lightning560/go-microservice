@@ -1,0 +1,287 @@
+syntax = "proto3";
+
+option go_package = "redbook/api/domain/user/v1;domainuserv1";
+option java_multiple_files = true;
+option java_package = "api.domain.user.v1";
+option java_outer_classname = "UserProto";
+
+package domain.user.v1;
+
+import "third_party/proto/gogoproto/gogo.proto";
+import "third_party/proto/validate/validate.proto";
+import "redbookpb/v1/base.proto";
+
+message User{
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 uid = 2 [(gogoproto.jsontag) = "uid"];
+  string password = 3 [(gogoproto.jsontag) = "password"];
+  string phone = 4 [(gogoproto.jsontag) = "phone"];
+  string email = 5 [(gogoproto.jsontag) = "email"];
+  int64 created_at = 6 [(gogoproto.jsontag) = "created_at"];
+}
+
+message Info {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 uid = 2 [(gogoproto.jsontag) = "uid"];
+  string name = 3 [(gogoproto.jsontag) = "name"];
+  int32 sex = 4 [(gogoproto.jsontag) = "sex"];
+  redbookpb.v1.Image avatar = 5 [(gogoproto.jsontag) = "avatar"];
+  string sign = 6 [(gogoproto.jsontag) = "sign"];
+  int32 rank = 7 [(gogoproto.jsontag) = "rank"];
+  int32 level = 8 [(gogoproto.jsontag) = "level"];
+}
+message Card {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 uid = 2 [(gogoproto.jsontag) = "uid"];
+  string name = 3 [(gogoproto.jsontag) = "name"];
+  int32 sex = 4 [(gogoproto.jsontag) = "sex"];
+  redbookpb.v1.Image avatar = 5 [(gogoproto.jsontag) = "avatar_url"];
+  string sign = 6 [(gogoproto.jsontag) = "sign"];
+  int32 rank = 7 [(gogoproto.jsontag) = "rank"];
+  int32 level = 8 [(gogoproto.jsontag) = "level"];
+  int32 silence = 9 [(gogoproto.jsontag) = "silence"];
+  VipInfo vip = 10 [(gogoproto.jsontag) = "vip", (gogoproto.nullable) = false];
+  PendantInfo pendant = 11
+      [(gogoproto.jsontag) = "pendant", (gogoproto.nullable) = false];
+  NameplateInfo nameplate = 12
+      [(gogoproto.jsontag) = "nameplate", (gogoproto.nullable) = false];
+  OfficialInfo official = 13
+      [(gogoproto.jsontag) = "official", (gogoproto.nullable) = false];
+}
+message Profile {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 uid = 2 [(gogoproto.jsontag) = "uid"];
+  string name = 3 [(gogoproto.jsontag) = "name"];
+  int32 sex = 4 [(gogoproto.jsontag) = "sex"];
+  redbookpb.v1.Image avatar = 5 [(gogoproto.jsontag) = "avatar"];
+  string sign = 6 [(gogoproto.jsontag) = "sign"];
+  int32 rank = 7 [(gogoproto.jsontag) = "rank"];
+  int32 level = 8 [(gogoproto.jsontag) = "level"];
+  int64 join_time = 9 [(gogoproto.jsontag) = "jointime"];
+  int32 moral = 10 [(gogoproto.jsontag) = "moral"];
+  int32 silence = 11 [(gogoproto.jsontag) = "silence"];
+  int32 email_status = 12 [(gogoproto.jsontag) = "email_status"];
+  int32 phone_status = 13 [(gogoproto.jsontag) = "tel_status"];
+  int32 identification = 14 [(gogoproto.jsontag) = "identification"];
+  VipInfo vip = 15 [(gogoproto.jsontag) = "vip", (gogoproto.nullable) = false];
+  PendantInfo pendant = 16
+      [(gogoproto.jsontag) = "pendant", (gogoproto.nullable) = false];
+  NameplateInfo nameplate = 17
+      [(gogoproto.jsontag) = "nameplate", (gogoproto.nullable) = false];
+  OfficialInfo official = 18
+      [(gogoproto.jsontag) = "official", (gogoproto.nullable) = false];
+  int64 birthday = 19 [
+    (gogoproto.jsontag) = "birthday",
+    (gogoproto.casttype) = "time.Time"
+  ];
+}
+
+message LevelInfo {
+  int32 cur = 1 [(gogoproto.jsontag) = "current_level"];
+  int32 min = 2 [(gogoproto.jsontag) = "current_min"];
+  int32 now_exp = 3 [(gogoproto.jsontag) = "current_exp"];
+  int32 next_exp = 4 [(gogoproto.jsontag) = "next_exp"];
+}
+
+message VipInfo {
+  int32 type = 1 [(gogoproto.jsontag) = "type"];
+  int32 status = 2 [(gogoproto.jsontag) = "status"];
+  int64 due_date = 3 [(gogoproto.jsontag) = "due_date"];
+  int32 vip_pay_type = 4 [(gogoproto.jsontag) = "vip_pay_type"];
+}
+
+message PendantInfo {
+  int32 pid = 1 [(gogoproto.jsontag) = "pid", (gogoproto.casttype) = "int"];
+  string name = 2 [(gogoproto.jsontag) = "name"];
+  string image = 3 [(gogoproto.jsontag) = "image"];
+  int64 expire = 4
+      [(gogoproto.jsontag) = "expire", (gogoproto.casttype) = "int"];
+}
+
+message NameplateInfo {
+  int32 nid = 1 [(gogoproto.jsontag) = "nid", (gogoproto.casttype) = "int"];
+  string name = 2 [(gogoproto.jsontag) = "name"];
+  string image = 3 [(gogoproto.jsontag) = "image"];
+  string image_small = 4 [(gogoproto.jsontag) = "image_small"];
+  string level = 5 [(gogoproto.jsontag) = "level"];
+  string condition = 6 [(gogoproto.jsontag) = "condition"];
+}
+
+message OfficialInfo {
+  int32 role = 1 [(gogoproto.jsontag) = "role", (gogoproto.casttype) = "int8"];
+  string title = 2 [(gogoproto.jsontag) = "title"];
+  string desc = 3 [(gogoproto.jsontag) = "desc"];
+}
+
+message CreateUserReq{
+  User  user = 1;
+}
+message CreateUserResponse{
+  int64 id =1;
+  int64 uid = 2;
+}
+
+message UpdateUserReq{
+  User user = 1;
+}
+message UpdateUserResponse{
+}
+
+message UpdatePasswordReq{
+  int64 uid = 1 [(validate.rules).int64 = {gt: 0}];
+  string password = 2 [(validate.rules).string = {min_len: 6}];
+  string real_ip = 3;
+}
+
+message GetUserInfoByUidReq {
+  int64 uid = 1 [(validate.rules).int64 = {gt: 0}];
+}
+message GetUserInfoByUidResponse {
+  redbookpb.v1.UserInfo info = 1;
+}
+message GetUserCardByUidReq {
+  int64 uid = 1 [(validate.rules).int64 = {gt: 0}];
+}
+message GetUserProfileByUidReq {
+  int64 uid = 1 [(validate.rules).int64 = {gt: 0}];
+}
+
+message MapUserInfoByUidsReq {
+  repeated int64 uids = 1 [(validate.rules).repeated.items.int64 = {gt: 0}];
+}
+message MapUserInfoByUidsResponse {
+  map<int64, redbookpb.v1.UserInfo> infos = 1;
+  int32  total= 2;
+}
+
+message NamesReq {
+  repeated string names = 1 [(validate.rules).repeated.items.string = {min_len:4}];
+  string real_ip = 2;
+}
+
+message ExpReq {
+  int64 uid = 1 [(validate.rules).int64 = {gt: 0}];
+  double exp = 2;
+  string operater = 3;
+  string operate = 4;
+  string reason = 5;
+  string real_ip = 6;
+}
+
+message MoralReq {
+  int64 uid = 1 [(validate.rules).int64 = {gt: 0}];
+  double moral = 2;
+  string oper = 3;
+  string reason = 4;
+  string remark = 5;
+  string real_ip = 6;
+}
+
+message RelationReq {
+  int64 uid = 1 [(validate.rules).int64 = {gt: 0}];
+  int64 owner_uid = 2;
+  string real_ip = 3;
+}
+
+message RelationsReq {
+  int64 uid = 1 [(validate.rules).int64 = {gt: 0}];
+  repeated int64 owners = 2;
+  string real_ip = 3;
+}
+
+message RichRelationReq {
+  int64 owner_uid = 1;
+  repeated int64 uids = 2 [(validate.rules).repeated.items.int64 = {gt: 0}];
+  string real_ip = 3;
+}
+
+message UpdateProfileReq{
+  Profile profile = 1;
+}
+
+message UpdateProfileResponse{
+}
+
+message GetUserProfileByUidResponse{
+  Profile profile = 1;
+}
+
+
+message GetUserCardByUidResponse {
+  Card card = 1;
+}
+
+message CardsResponse {
+  map<int64, Card> cards = 1;
+}
+
+message ProfileResponse {
+  Profile profile = 1;
+}
+
+message ProfileStatResponse {
+  Profile profile = 1;
+  LevelInfo level_info = 2 [(gogoproto.nullable) = false];
+  double coins = 3;
+  int64 following = 4;
+  int64 follower = 5;
+}
+
+message RelationResponse {
+  bool following = 1;
+}
+
+message AttentionsResponse {
+  repeated int64 attentions = 1;
+}
+
+message BlacksResponse {
+  map<int64, bool> black_list = 1;
+}
+
+message RelationsResponse {
+  map<int64, RelationResponse> relations = 1;
+}
+
+message RichRelationsResponse {
+  map<int64, int32> rich_relations = 1;
+}
+
+message VipResponse {
+  int32 type = 1;
+  int32 status = 2;
+  int64 due_date = 3;
+  int32 vip_pay_type = 4;
+}
+
+message VipsResponse {
+  map<int64, VipResponse> vips = 1;
+}
+
+message ExpResponse {}
+message MoralResponse {}
+
+service UserRpc {
+  rpc CreateUser(CreateUserReq) returns (CreateUserResponse);
+  // rpc GetUser(UidReq) returns (UserResponse);
+  rpc UpdateUser(UpdateUserReq) returns (redbookpb.v1.EmptyResponse);
+  rpc UpdatePassword(UpdatePasswordReq) returns (redbookpb.v1.EmptyResponse);
+
+  // rpc UpdateProfile(UpdateProfileReq) returns (UpdateProfileResponse);
+  rpc GetUserInfoByUid(GetUserInfoByUidReq) returns (GetUserInfoByUidResponse);
+  rpc MapUserInfoByUids(MapUserInfoByUidsReq) returns (MapUserInfoByUidsResponse);
+  // rpc InfosByName(NamesReq) returns (InfosResponse);
+  rpc GetUserByUidCard(GetUserCardByUidReq) returns (GetUserCardByUidResponse);
+  // rpc Cards(UidsReq) returns (CardsResponse);
+  rpc GetUserProfileByUid(GetUserProfileByUidReq) returns (GetUserProfileByUidResponse);
+  // rpc ProfileWithStat(UidReq) returns (ProfileStatResponse);
+  // rpc AddExp(ExpReq) returns (ExpResponse);
+  // rpc AddMoral(MoralReq) returns (MoralResponse);
+  // rpc Relation(RelationReq) returns (RelationResponse);
+  // rpc Attentions(UidReq) returns (AttentionsResponse);
+  // rpc Blacks(IidReq) returns (BlacksResponse);
+  // rpc Relations(RelationsReq) returns (RelationsResponse);
+  // rpc RichRelations(RichRelationReq) returns (RichRelationsResponse);
+  // rpc Vip(UidReq) returns (VipResponse);
+  // rpc Vips(UidsReq) returns (VipsResponse);
+}

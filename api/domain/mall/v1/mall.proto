@@ -1,0 +1,413 @@
+syntax = "proto3";
+
+option go_package = "redbook/api/domain/mall/v1;domainmallv1";
+option java_multiple_files = true;
+option java_package = "api.domain.mall.v1";
+option java_outer_classname = "MallProto";
+
+package domain.mall.v1;
+
+// import "third_party/proto/google/api/annotations.proto";
+// import "third_party/proto/google/api/http.proto";
+import "third_party/proto/validate/validate.proto";
+// import "google/protobuf/empty.proto";
+// import "google/protobuf/timestamp.proto";
+import "redbookpb/v1/base.proto";
+
+
+message Shop{
+    int64 id = 1 [ (validate.rules).int64.gt = 0];
+    int64 uid = 2;
+    string name = 3;
+    string sign = 4;
+    redbookpb.v1.Image logo = 5;
+    int32 state = 6;
+    int64 created_at = 7;
+}
+
+message Product{
+    int64 id = 1;
+    int64 shop_id = 2;
+    string name = 3;
+    string title = 4;
+    int64 price = 5;
+    redbookpb.v1.Image thumb = 6;
+    repeated redbookpb.v1.Image images = 7;
+    redbookpb.v1.Video video = 8;
+    repeated redbookpb.v1.Image overview = 9;
+    string specs = 10;
+    repeated redbookpb.v1.Tag tags = 11;
+    int32 Inventory = 12;
+    int32 state = 13;
+    int64 created_at = 14;
+    int64 updated_at = 15;
+    int64 publish_at = 16;
+    int32 version = 17;
+}
+message CreateProduct{
+    int64 shop_id = 1;
+    string name = 2;
+    string title = 3;
+    int64 price = 4;
+    redbookpb.v1.Image thumb = 5;
+    repeated redbookpb.v1.Image images = 6;
+    redbookpb.v1.Video video = 7;
+    repeated redbookpb.v1.Image overview = 8;
+    string specs = 9;
+    repeated redbookpb.v1.Tag tags = 10;
+    int32 Inventory = 11;
+    int64 publish_at = 12;
+}
+message ProductCard{
+    int64 id = 1;
+    int64 shop_id = 2;
+    string name = 3;
+    string title = 4;
+    int64 price = 5;
+    redbookpb.v1.Image thumb = 6;
+    redbookpb.v1.Video video = 7;
+    repeated redbookpb.v1.Tag tags = 8;
+    int64 publish_at = 9;
+    int32 state = 10;
+    int32 version = 11;
+}
+message Sku{
+    int32 index =1;
+    string name =2;
+    int64 product_id = 3;
+    Product product = 4;
+}
+
+message SkuOnlyId{
+    int32 index =1;
+    string name =2;
+    int64 product_id = 3;
+}
+message Collection{
+    int64 id = 1;
+    int64 shop_id = 2;
+    string name = 3;
+    string title = 4;
+    redbookpb.v1.Image cover = 5;
+    redbookpb.v1.Video video = 6;
+    repeated redbookpb.v1.Tag tags = 7;
+    int32 state = 8;
+    int64 created_at = 9;
+    int64 updated_at = 10;
+    int64 publish_at = 11;
+    int32 version = 12;
+    repeated Sku skus = 13;
+}
+
+message CreateCollection{
+    int64 shop_id = 1;
+    string name = 2;
+    string title = 3;
+    redbookpb.v1.Image cover = 4;
+    redbookpb.v1.Video video = 5;
+    repeated redbookpb.v1.Tag tags = 6;
+    int64 publish_at = 7;
+    repeated SkuOnlyId skus_only_id = 8;
+}
+
+message CollectionCard{
+    int64 id =1 ;
+    int64 shop_id = 2;
+    string name = 3;
+    string title = 4;
+    redbookpb.v1.Image cover = 5;
+    redbookpb.v1.Video video = 6;
+    repeated redbookpb.v1.Tag tags = 7;
+    int32 state = 8;
+    int32 version = 9;
+    int64 product_id = 10;
+    ProductCard product_card = 11;
+}
+
+message CartItem{
+    int64 id = 1;
+    int64 uid = 2;
+    int64 collection_id = 3;
+    int32 quantity = 4;
+    int64 created_at = 5;
+    int64 updated_at =  6;
+    int64 product_id = 7;
+    ProductCard product_card = 8;
+}
+
+message OrderItem{
+    int64 collection_id = 1;
+    int64 product_id = 2;
+    int32 quantity = 3;
+    int64 shot_product_id = 4;
+    ProductCard shot_product_card = 5;
+}
+message Order{
+    int64 id = 1;
+    int64 uid = 2;
+    repeated OrderItem order_items = 3;
+    int32 state = 4;
+    int64 created_at = 5;
+    int64 updated_at = 6;
+    int64 pay_at = 7;
+    int64 deliver_at = 8;
+    int64 receive_at = 9;
+    int64 cancel_at = 10;
+    int64 refund_at = 11;
+    int64 refund_amount = 12;
+    int64 total_amount = 13;
+    int64 total_quantity = 14;
+    int64 total_discount = 15;
+    int64 total_pay = 16;
+    int64 total_refund = 17;
+    int64 total_coupon = 18;
+    int64 total_point = 19;
+    int64 total_freight = 20;
+    int64 total_tax = 21;
+    int64 total_service = 22;
+    int64 total_profit = 23;
+    int64 total_cost = 24;
+    int64 total_profit_rate = 25;
+    int64 total_cost_rate = 26;
+    int64 total_profit_margin = 27;
+    int64 total_cost_margin = 28;
+    int64 total_profit_margin_rate = 29;
+    int64 total_cost_margin_rate = 30;
+}
+
+message CreateShopReq{
+    int64 uid = 1;
+    string name = 2;
+    string sign = 3;
+    redbookpb.v1.Image logo = 4;
+}
+
+message CreateShopResponse{
+    int64 id = 1;
+}
+
+message GetShopByIdReq{
+    int64 id = 1;
+}
+message GetShopByIdResponse{
+    Shop shop = 1;
+}
+
+message CreateProductReq{
+    CreateProduct create_product = 1;
+}
+message CreateProductResponse{
+    int64 id = 1;
+}
+
+
+message GetProductByIdReq{
+    int64 id = 1;
+}
+
+message GetProductByIdResponse{
+    Product product = 1;
+}
+
+message MapProductByIdsReq{
+    repeated int64 ids = 1;
+}
+message MapProductByIdsResponse{
+    map<int64, Product> products = 1;
+    int32 total = 2;
+}
+message GetCollectionByIdReq{
+    int64 id = 1;
+}
+
+message GetCollectionByIdResponse{
+    Collection collection = 1;
+}
+message GetCollectionCardByIdReq{
+    int64 id = 1;
+}
+message GetCollectionCardByIdResponse{
+    CollectionCard collection_card = 1;
+}
+
+message CreateCollectionReq{
+    CreateCollection create_collection = 1;
+}
+
+message CreateCollectionResponse{
+    int64 id = 1;
+}
+message MapCollectionCardByIdsReq{
+    repeated int64 ids = 1;
+}
+
+message MapCollectionCardByIdsResponse{
+    map<int64, CollectionCard> collection_cards = 1;
+    int32 total = 2;
+}
+
+
+message MapCollectionCardByShopIdReq{
+    int64 id = 1;
+    int32 state = 2;
+    redbookpb.v1.Cursor cursor = 3;
+    redbookpb.v1.Sort sort = 4;
+}
+
+message MapCollectionCardByShopIdResponse{
+    map<int64, CollectionCard> collection_cards = 1;
+    int32 total = 2;
+    redbookpb.v1.Cursor cursor = 3;
+}
+
+message UpdateCollectionStateReq{
+    int64 id = 1;
+    int32 state = 2;
+}
+
+message UpdateCollectionStateResponse{
+}
+
+message UpdateCollectionSkuReq{
+    int64 id = 1;
+    repeated SkuOnlyId skus_only_id = 2;
+}
+
+message UpdateCollectionSkuResponse{
+}
+
+message CreateCartItemReq{
+    int64 uid = 1;
+    int64 collection_id = 2;
+    int64 product_id = 3;
+    int32 quantity = 4;
+}
+
+message CreateCartItemResponse{
+    int64 id = 1;
+}
+
+message MapCartItemByUidReq{
+    int64 uid = 1;
+}
+
+message MapCartItemByUidResponse{
+    map<int64, CartItem> cart_items = 1;
+    int32 total = 2;
+}
+message UpdateCartItemQuantityReq{
+    int64 id = 1;
+    int32 quantity = 2;
+}
+
+message UpdateCartItemQuantityResponse{
+    int64 id = 1;
+}
+
+message DeleteCartItemReq{
+    int64 id = 1;
+    int64 uid = 2;
+}
+message DeleteCartItemResponse{
+}
+
+message CreateOrderReq{
+    int64 uid = 1;
+    repeated OrderItem order_items = 2;
+}
+message CreateOrderResponse{
+    Order order = 1;
+    string token = 2;
+}
+
+message GetOrderByIdReq{
+    int64 id = 1;
+}
+
+message GetOrderByIdResponse{
+    Order order = 1;
+}
+
+message MapOrderByIdsReq{
+    repeated int64 ids = 1;
+}
+message MapOrderByIdsResponse{
+    map<int64, Order> orders = 1;
+    int32 total = 2;
+}
+
+message MapOrderByUidReq{
+    int64 uid = 1;
+    int32 state = 2;
+    int64 start_time = 3;
+    int64 end_time = 4;
+    redbookpb.v1.Cursor cursor = 5;
+    redbookpb.v1.Sort sort = 6;
+}
+
+message MapOrderByUidResponse{
+    map<int64, Order> orders = 1;
+    int32 total = 2;
+    redbookpb.v1.Cursor cursor = 3;
+}
+enum OrderState{
+    ORDER_STATE_UNKNOWN = 0;
+    ORDER_STATE_CREATED = 1;
+    ORDER_STATE_PAID = 2;
+    ORDER_STATE_DELIVERED = 3;
+    ORDER_STATE_RECEIVED = 4;
+    ORDER_STATE_REFUNDING = 5;
+    ORDER_STATE_REFUNDED = 6;
+    ORDER_STATE_CANCELED = 7;
+    ORDER_STATE_FINISHED = 8;
+}
+
+enum OrderAction{
+    ORDER_ACTION_UNKNOWN = 0;
+    ORDER_ACTION_PAY = 1;
+    ORDER_ACTION_DELIVER = 2;
+    ORDER_ACTION_RECEIVE = 3;
+    ORDER_ACTION_REFUND = 4;
+    ORDER_ACTION_CANCEL = 5;
+    ORDER_ACTION_FINISH = 6;
+}
+
+message UpdateOrderStateReq{
+    int64 id = 1;
+    int32 action = 2;
+    int64 state = 3;
+}
+
+message UpdateOrderStateResponse{
+    int64 id = 1;
+}
+
+
+service MallRpc{
+    rpc CreateShop(CreateShopReq) returns (CreateShopResponse) {}
+    rpc GetShopById(GetShopByIdReq) returns (GetShopByIdResponse) {}
+
+    rpc CreateProduct(CreateProductReq) returns (CreateProductResponse) {}
+    rpc GetProductById(GetProductByIdReq) returns (GetProductByIdResponse) {}
+    rpc MapProductByIds (MapProductByIdsReq) returns (MapProductByIdsResponse) {}
+
+    rpc CreateCollection(CreateCollectionReq) returns (CreateCollectionResponse) {}
+    rpc GetCollectionById(GetCollectionByIdReq) returns (GetCollectionByIdResponse) {}
+    rpc GetCollectionCardById(GetCollectionCardByIdReq) returns (GetCollectionCardByIdResponse) {}
+    rpc MapCollectionCardByIds(MapCollectionCardByIdsReq) returns (MapCollectionCardByIdsResponse) {}
+    rpc MapCollectionCardByShopId(MapCollectionCardByShopIdReq) returns (MapCollectionCardByShopIdResponse) {}
+    rpc UpdateCollectionState(UpdateCollectionStateReq) returns (UpdateCollectionStateResponse) {}
+    rpc UpdateCollectionSku(UpdateCollectionSkuReq) returns (UpdateCollectionSkuResponse) {}
+
+    rpc CreateCartItem(CreateCartItemReq) returns (CreateCartItemResponse) {}
+    // rpc GetCartItem(GetCartItemReq) returns (GetCartItemResponse) {}
+    rpc MapCartItemByUid(MapCartItemByUidReq) returns (MapCartItemByUidResponse) {}
+    rpc UpdateCartItemQuantity(UpdateCartItemQuantityReq) returns (UpdateCartItemQuantityResponse) {}
+    rpc DeleteCartItem(DeleteCartItemReq) returns (DeleteCartItemResponse) {}
+
+    rpc CreateOrder(CreateOrderReq) returns (CreateOrderResponse) {}
+    rpc GetOrderById(GetOrderByIdReq) returns (GetOrderByIdResponse) {}
+    rpc MapOrderByIds(MapOrderByIdsReq) returns (MapOrderByIdsResponse) {}
+    rpc MapOrderByUid(MapOrderByUidReq) returns (MapOrderByUidResponse) {}
+    rpc UpdateOrderState(UpdateOrderStateReq) returns (UpdateOrderStateResponse) {}
+}

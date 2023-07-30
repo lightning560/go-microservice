@@ -1,0 +1,248 @@
+syntax = "proto3";
+
+option go_package = "redbook/api/domain/comment/v1;commentv1";
+option java_multiple_files = true;
+option java_package = "api.domain.comment.v1";
+option java_outer_classname = "commentProto";
+
+package domain.comment.v1;
+
+import "third_party/proto/gogoproto/gogo.proto";
+import "third_party/proto/validate/validate.proto";
+import "redbookpb/v1/base.proto";
+
+message Subject{
+    int64 id =1;
+	int64 owner_uid=2;
+	int64 belong_id =3;
+	string biz_type =4;
+
+	int64 created_at =5;
+	int64 updated_at =6;
+	int32 floor_count=7;
+	int32 reply_count =8;
+	int32 state =9;
+
+	int64 attr=10;
+	string meta=11;
+}
+
+message FloorAttr{
+	int32 reply_count = 1;
+	int32 pin_admin = 2;
+	int32 pin_owner = 3;
+	int32 fold = 4;
+	bool hot = 5;
+}
+
+message Reply{
+    int64 id = 1;
+	int64 owner_uid = 2;
+	int64 subject_id = 3;
+	string biz_type = 4 [(gogoproto.jsontag) = "biz_type"];
+    int64 floor_id = 5 [(gogoproto.jsontag) = "floor_id"];
+	string content = 6 [(gogoproto.jsontag) = "content"];
+	int64 at_uid =7 [(gogoproto.jsontag) = "at_uid"];
+
+	int32 deleted =8 [(gogoproto.jsontag) = "deleted_at"];
+    int32 state = 9 [(gogoproto.jsontag) = "state"];
+
+	int64 created_at =10 [(gogoproto.jsontag) = "created_at"];
+	int64 updated_at =11 [(gogoproto.jsontag) = "updated_at"];
+
+
+    int32 like_count = 12 [(gogoproto.jsontag) = "like_count"];
+    int32 dislike_count = 13 [(gogoproto.jsontag) = "dislike_count"];
+
+	int64 dialog = 14 [(gogoproto.jsontag) = "dialog"];
+
+    int32 fan_grade = 15 [(gogoproto.jsontag) = "fan_grade"];
+    int32 platform = 16 [(gogoproto.jsontag) = "platform"];
+    string device = 17 [(gogoproto.jsontag) = "device "];
+	int64 attr =18 [(gogoproto.jsontag) = "attr"];
+	string meta =19 [(gogoproto.jsontag) = "meta"];
+
+	FloorAttr floor_attr = 20 [(gogoproto.jsontag) = "floor_attr"];
+}
+
+message Floor {
+	Reply root_reply = 1;
+	repeated Reply replies = 2;
+	int32 total = 3;
+	redbookpb.v1.Cursor cursor = 4;
+}
+
+
+message CreateSubjectReq{
+	int64 belong_id =1;
+	string biz_type =2;
+	int64 owner_uid=3;
+
+}
+
+message CreateSubjectResponse{
+	int64 subject_id = 1;
+}
+message GetSubjectByIdReq{
+	int64 id =1;
+}
+
+message GetSubjectByIdResponse{
+	Subject subject=1;
+}
+
+message GetSubjectByBelongReq{
+	int64 belong_id =1;
+	string biz_type =2;
+}
+
+message GetSubjectByBelongResponse{
+	Subject subject=1;
+}
+
+
+message CreateReplyReq{
+	bool is_floor =1;
+	int64 owner_uid = 2;
+	int64 subject_id = 3;
+	string biz_type = 4 [(gogoproto.jsontag) = "biz_type"];
+    int64 floor_id = 5 [(gogoproto.jsontag) = "floor_id"];
+	string content = 6 [(gogoproto.jsontag) = "content"];
+	int64 at_uid =7 [(gogoproto.jsontag) = "at_uid"];
+}
+
+message CreateReplyResponse{
+	int64 reply_id = 1;
+}
+
+message GetReplyByIdReq{
+    int64 id =1;
+}
+
+message GetReplyByIdResponse{
+	Reply reply=1;
+}
+
+message ListReplyByIdsReq{
+	repeated int64 ids =1;
+}
+
+message ListReplyByIdsResponse{
+	repeated Reply replies =1;
+	int32 total = 2;
+}
+
+message DialogReplys{
+	Reply root=1;
+	repeated Reply Replies = 2;
+	int32 total = 3;
+}
+
+message ListFloorBySubjectSortReplyReq {
+    int64 subject_id = 1 [(validate.rules).int64.gt = 1];
+	redbookpb.v1.Cursor cursor =2;
+	redbookpb.v1.Sort sort =3;
+}
+message ListFloorBySubjectSortReplyResponse{
+	repeated Floor floors = 1;
+	int32 total = 2;
+	redbookpb.v1.Cursor cursor =3;
+}
+message ListFloorBySubjectSortTimeReq {
+	int64 subject_id = 1 [(validate.rules).int64.gt = 1];
+	redbookpb.v1.Cursor cursor =2;
+	redbookpb.v1.Sort sort =3;
+}
+
+message ListFloorBySubjectSortTimeResponse{
+	repeated Floor floors = 1;
+	int32 total = 2;
+	redbookpb.v1.Cursor cursor =3;
+}
+message ListReplyByFloorSortLikeReq{
+	int64 subject_id =1;
+    int64 floor_id = 2 [(validate.rules).int64.gt = 0];
+	redbookpb.v1.Cursor cursor =3;
+	redbookpb.v1.Sort sort =4;
+}
+message ListReplyByFloorSortLikeResponse{
+	repeated Reply replies =1;
+	int32 total = 2;
+	redbookpb.v1.Cursor cursor =3;
+}
+
+message ListReplyByFloorSortTimeReq{
+	int64 subject_id =1;
+    int64 floor_id = 2 [(validate.rules).int64.gt = 0];
+	redbookpb.v1.Cursor cursor =3;
+	redbookpb.v1.Sort sort =4;
+}
+message ListReplyByFloorSortTimeResponse{
+	repeated Reply replies =1;
+	int32 total = 2;
+	redbookpb.v1.Cursor cursor =3;
+}
+message DialogPageReq{
+    int64 id = 1 [(validate.rules).int64.gt = 1];
+    string order = 4;
+	int32 plat =5;
+	int32 offset = 6;
+	int32 limit=7;
+}
+message DialogCursorReq{
+    int64 oid = 1 [(validate.rules).int64.gt = 1];
+	int64 sid = 2 ;
+	int64 bid =3;
+    string order = 4;
+	int64 plat =5;
+	int32 offset = 6;
+	int32 limit=7;
+}
+
+message DialogReplysReply{
+	// state使用floor root reply的
+	repeated Reply replies = 1;
+	int32 total = 2;
+}
+
+message AddLikeReq{
+	int64 reply_id = 1;
+	int64 uid = 2;
+}
+message AddLikeResponse{
+}
+message CancelLikeReq{
+	int64 reply_id = 1;
+	int64 uid = 2;
+}
+message CancelLikeResponse{
+}
+
+message IsLikeReq{
+	int64 reply_id = 1;
+	int64 uid = 2;
+}
+message IsLikeResponse{
+	bool result = 1;
+}
+
+service CommentRpc{
+	rpc CreateSubject(CreateSubjectReq) returns (CreateSubjectResponse);
+	rpc GetSubjectById(GetSubjectByIdReq) returns (GetSubjectByIdResponse);
+	rpc GetSubjectByBelong(GetSubjectByBelongReq) returns (GetSubjectByBelongResponse);
+
+	rpc CreateReply(CreateReplyReq) returns (CreateReplyResponse);
+	// rpc GetReplyById(GetReplyByIdReq) returns (GetReplyByIdReponse);
+	rpc ListReplyByIds(ListReplyByIdsReq) returns (ListReplyByIdsResponse);
+	rpc ListFloorBySubjectSortReply(ListFloorBySubjectSortReplyReq) returns (ListFloorBySubjectSortReplyResponse);
+	rpc ListFloorBySubjectSortTime(ListFloorBySubjectSortTimeReq) returns (ListFloorBySubjectSortTimeResponse);
+
+	rpc ListReplyByFloorSortLike(ListReplyByFloorSortLikeReq) returns (ListReplyByFloorSortLikeResponse);
+	rpc ListReplyByFloorSortTime(ListReplyByFloorSortTimeReq) returns (ListReplyByFloorSortTimeResponse);
+	// rpc DialogPageSortTime(DialogPageReq) returns (DialogReplysReply);
+	// rpc DialogCursorSortTime(DialogCursorReq) returns (DialogReplysReply);
+
+	rpc AddLike(AddLikeReq) returns (AddLikeResponse);
+	rpc CancelLike(CancelLikeReq) returns (CancelLikeResponse);
+	rpc IsLike(IsLikeReq) returns (IsLikeResponse);
+}

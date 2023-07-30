@@ -1,0 +1,29 @@
+[mongo]
+	debug=true
+	dsn="mongodb://root:password@127.0.0.1:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false"
+[mio.client.directserver]
+    address = "127.0.0.1:50051"
+    balancerName = "round_robin" # 默认值
+    enableBlock =  false # 默认值
+    dialTimeout = "0s" # 默认值
+    debug = true # 开启Debug信息
+    enableTraceInterceptor = false # 链路追踪
+    enableMetricInterceptor = true
+    enableAccessInterceptor = true
+    enableAccessInterceptorReq = true
+    enableAccessInterceptorRes = true
+[mio.trace.jaeger]
+    enableRPCMetrics = false
+    [mio.trace.jaeger.sampler]
+        type = "const"
+        param = 0.001
+[mio.trace.mysql.write]
+    dns = "root:password@tcp(127.0.0.1:13306)/account?timeout=2s&readTimeout=2s&writeTimeout=2s&parseTime=true&loc=Local&charset=utf8mb4,utf8"
+[redis.dev]
+    debug = true # mio增加redis debug，打开后可以看到，配置名、地址、耗时、请求数据、响应数据
+    addr = "127.0.0.1:6379"
+    enableAccessInterceptor = true
+    enableAccessInterceptorReq = true
+    enableAccessInterceptorRes = true
+[mio.server.like]
+    port = 21002

@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package interface.demo.v1;
+
+import "third_party/proto/google/api/annotations.proto";
+// import "third_party/proto/google/api/http.proto";
+import "third_party/proto/validate/validate.proto";
+// import "third_party/proto/google/protobuf/empty.proto";
+// import "google/protobuf/timestamp.proto";
+
+option go_package = "redbook/api/interface/demo/v1;v1";
+
+
+message CreateDemoReq {
+    string name = 1;
+    uint32 age = 2 [(validate.rules).uint32.lt = 120];
+}
+
+message CreateDemoReply {
+    int64 id = 1;
+}
+
+message StringMessage {
+    string value = 1;
+}
+service DemoInterface {
+    rpc Echo(CreateDemoReq) returns (CreateDemoReply) {
+        option (google.api.http) = {
+            post: "/v1/example/echo"
+            body: "*"
+    };
+}
+    // rpc ListPet (google.protobuf.Empty) returns (PetList) {
+    //     option (google.api.http) = {
+    //         get: "/v1/pets1"
+    //     };
+    // }
+
+    // rpc GetPet (Id) returns (Pet) {
+    //     option (google.api.http) = {
+    //         get: "/v1/pet/{id}"
+    //     };
+    // }
+    // rpc CreatePet (Pet) returns (Pet) {
+    //     option (google.api.http) = {
+    //         post: "/v1/pet"
+    //         body: "*"
+    //     };
+    // }
+
+    // rpc UpdatePet (Pet) returns (Pet) {
+    //     option (google.api.http) = {
+    //         put: "/v1/pet/{id}"
+    //         body: "*"
+    //     };
+    // }
+
+    // rpc DeletePet (Id) returns (google.protobuf.Empty) {
+    //     option (google.api.http) = {
+    //         delete: "/v1/pet/{id}"
+    //         body: "*"
+    //     };
+    // }
+}
+
+// message Id {
+//     string id = 1;
+// }
+
+// message PetList {
+//     repeated Pet items = 1;
+// }
+
+// message Pet {
+//     string id = 1;
+//     google.protobuf.Timestamp createdAt = 2;
+//     google.protobuf.Timestamp updatedAt = 3;
+//     string name = 4;
+//     string type = 5;
+//     string  sex = 6;
+//     uint32 age = 7;
+//     bool owned = 8;
+// }

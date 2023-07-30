@@ -1,0 +1,27 @@
+
+syntax = "proto3";
+
+option go_package = "redbook/api/domain/demo/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.domain.demo.v1";
+option java_outer_classname = "DemoProto";
+
+package domain.demo.v1;
+
+import "third_party/proto/gogoproto/gogo.proto";
+import "third_party/proto/validate/validate.proto";
+
+
+message DemoReq {
+    int64 sid = 1;
+    int64 oid = 2[(gogoproto.jsontag) = "oid",(validate.rules).int64 = {gt: 0} ];
+}
+
+
+message DemoReply {
+    int64 oid = 1;
+}
+
+service Greeter{
+    rpc SayHello(DemoReq) returns (DemoReply);
+}

@@ -1,0 +1,31 @@
+[mio.server.http]
+    host = "0.0.0.0"
+    port = 9002
+[mio.client.directserver.user]
+    address = "127.0.0.1:59001"
+    balancerName = "round_robin" # 默认值
+    enableBlock =  false # 默认值
+    dialTimeout = "0s" # 默认值
+    debug = true # 开启Debug信息
+    enableTraceInterceptor = false # 链路追踪
+    enableMetricInterceptor = true
+    enableAccessInterceptor = true
+    enableAccessInterceptorReq = true
+    enableAccessInterceptorRes = true
+
+[mio.client.directserver.feed]
+    address = "127.0.0.1:59002"
+    balancerName = "round_robin" # 默认值
+    enableBlock =  false # 默认值
+    dialTimeout = "0s" # 默认值
+    debug = true # 开启Debug信息
+    enableTraceInterceptor = false # 链路追踪
+    enableMetricInterceptor = true
+    enableAccessInterceptor = true
+    enableAccessInterceptorReq = true
+    enableAccessInterceptorRes = true
+[mio.trace.jaeger]
+    enableRPCMetrics = false
+    [mio.trace.jaeger.sampler]
+        type = "const"
+        param = 0.001

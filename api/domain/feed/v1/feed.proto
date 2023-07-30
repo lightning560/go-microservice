@@ -1,0 +1,344 @@
+syntax = "proto3";
+
+option go_package = "redbook/api/domain/feed/v1;domainfeedv1";
+option java_multiple_files = true;
+option java_package = "api.domain.feed.v1";
+option java_outer_classname = "FeedProto";
+
+package domain.feed.v1;
+
+// import "third_party/proto/google/api/annotations.proto";
+// import "third_party/proto/google/api/http.proto";
+import "third_party/proto/validate/validate.proto";
+// import "google/protobuf/empty.proto";
+// import "google/protobuf/timestamp.proto";
+import "redbookpb/v1/base.proto";
+
+message Post {
+    int64 id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2;
+    string title = 3 [(validate.rules).string.max_len = 100];
+    string content = 4 [(validate.rules).string.max_len = 500];
+    int64 created_at = 5 ;
+    int64 updated_at = 6 ;
+    redbookpb.v1.Image cover = 7;
+    string type = 8 [(validate.rules).string.max_len = 20];
+    redbookpb.v1.Video video = 9 ;
+    repeated redbookpb.v1.Image images = 10;
+    repeated redbookpb.v1.Tag tags = 11;
+    int32 state = 12;
+    int32 like_count = 13;
+    int32 share_count = 14;
+    int32 favor_count = 15;
+    int32 view_count = 16;
+    int64 comment_id = 17;
+}
+
+message PostCard{
+    int64 id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2;
+    string type = 3 [(validate.rules).string.max_len = 20];
+    string title = 4 [(validate.rules).string.max_len = 100];
+    redbookpb.v1.Image cover = 5;
+    int32 state = 6;
+    int32 like_count = 7;
+    repeated redbookpb.v1.Tag tags = 8;
+}
+
+message Like {
+    int64 id = 1 [(validate.rules).int64.gt = 0];
+    int64 post_id = 2 [(validate.rules).int64.gt = 0];
+    int64 uid = 3 [(validate.rules).int64.gt = 0];
+    int64 created_at = 4 ;
+}
+message Share {
+    int64 id = 1 [(validate.rules).int64.gt = 0];
+    int64 post_id = 2 [(validate.rules).int64.gt = 0];
+    int64 uid = 3 [(validate.rules).int64.gt = 0];
+    int64 created_at = 4 ;
+}
+message Favor {
+    int64 id = 1 [(validate.rules).int64.gt = 0];
+    int64 post_id = 2 [(validate.rules).int64.gt = 0];
+    int64 uid = 3 [(validate.rules).int64.gt = 0];
+    int64 created_at = 4 ;
+}
+
+message Relation {
+    int64 id = 1 [(validate.rules).int64.gt = 0];
+    int64 follower_uid = 2 [(validate.rules).int64.gt = 0];
+    int64 followee_uid = 3 [(validate.rules).int64.gt = 0];
+    int64 created_at = 4 ;
+}
+
+message Response {
+}
+message BoolResponse {
+    bool result = 1;
+}
+
+message CreatePostReq {
+    Post post = 1;
+}
+message CreatePostResponse {
+    int64 id =1;
+}
+message UpdatePostReq{
+    Post post = 1;
+}
+
+message UpdatePostResponse {
+    int64 id =1;
+}
+message GetPostReq {
+    int64 id = 1 [(validate.rules).int64.gt = 0];
+}
+message GetPostResponse {
+    Post post = 1;
+}
+message ListPostCardReq{
+    int32 offset = 1;
+    int32 limit = 2;
+    string sort_by =3;
+    string sort_order =4;
+}
+message ListPostCardResponse{
+    repeated PostCard postCards = 1;
+    int32 total = 2;
+}
+
+message ListPostCardByIdsReq {
+    repeated int64 ids =1;
+}
+message ListPostCardByIdsResponse {
+    repeated PostCard postCards = 1;
+    int32 total = 2;
+}
+
+message ListPostCardByUidReq {
+    int64 uid =1;
+    int32 offset = 2;
+    int32 limit = 3;
+    string sort_by =4;
+    string sort_order =5;
+}
+message ListPostCardByUidResponse {
+    repeated PostCard postCards = 1;
+    int32 total = 2;
+}
+message ListTimelinePostCardWithTimestampReq {
+    int64 uid =1;
+    int32 offset = 2;
+    int32 limit = 3;
+    string sort_by =4;
+    string sort_order =5;
+    int64 timestamp = 6;
+}
+
+message ListTimelinePostCardWithTimestampResponse {
+    repeated PostCard postCards = 1;
+    int32 total = 2;
+}
+
+message DeletePostReq{
+    int64 id = 1 [(validate.rules).int64.gt = 0];
+}
+
+
+message ListVideoPostReq{
+    int64 uid =1;
+    int32 offset = 2;
+    int32 limit = 3;
+    string sort_by =4;
+    string sort_order =5;
+}
+message ListVideoPostResponse{
+    repeated Post posts = 1;
+    int32 total = 2;
+}
+
+
+message AddFollowReq {
+    int64 follower_uid = 1 [(validate.rules).int64.gt = 0];
+    int64 followee_uid = 2 [(validate.rules).int64.gt = 0];
+}
+message CancelFollowReq {
+    int64 follower_uid = 1 [(validate.rules).int64.gt = 0];
+    int64 followee_uid = 2 [(validate.rules).int64.gt = 0];
+}
+message IsFollowReq {
+    int64 follower_uid = 1 [(validate.rules).int64.gt = 0];
+    int64 followee_uid = 2 [(validate.rules).int64.gt = 0];
+}
+message ListFollowerReq {
+    int64 followee_uid = 1 [(validate.rules).int64.gt = 0];
+}
+message ListFolloweeReq {
+    int64 follower_uid = 1 [(validate.rules).int64.gt = 0];
+}
+
+message ListFollowerResponse {
+    repeated Relation relations = 1;
+    int32 total = 2;
+}
+message ListFolloweeResponse {
+    repeated Relation relations = 1;
+    int32 total = 2;
+}
+
+
+message GetPostStatReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+}
+message GetPostStatResponse {
+    int32 like_count = 1;
+    int32 share_count = 2;
+    int32 view_count = 3;
+    int32 favor_count = 4;
+}
+
+message AddLikeReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2 [(validate.rules).int64.gt = 0];
+}
+message CancelLikeReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2 [(validate.rules).int64.gt = 0];
+}
+message IsLikeReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2 [(validate.rules).int64.gt = 0];
+}
+message ListLikeByPostReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+}
+message ListLikeByPostResponse {
+    repeated Like likes = 1;
+    int32 total = 2;
+}
+message ListLikeByUidReq {
+    int64 uid = 1 [(validate.rules).int64.gt = 0];
+}
+
+message ListLikeByUidResponse {
+    repeated Like likes = 1;
+    int32 total = 2;
+}
+
+message GetLikeCountByPostReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+}
+message GetLikeCountByPostResponse {
+    int32 count = 1;
+}
+
+message AddFavorReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2 [(validate.rules).int64.gt = 0];
+}
+message CancelFavorReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2 [(validate.rules).int64.gt = 0];
+}
+message IsFavorReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2 [(validate.rules).int64.gt = 0];
+}
+message ListFavorByPostReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+}
+message ListFavorByPostResponse {
+    repeated Favor favors = 1;
+    int32 total = 2;
+}
+message ListFavorByUidReq {
+    int64 uid = 1 [(validate.rules).int64.gt = 0];
+}
+
+message ListFavorByUidResponse {
+    repeated Favor favors = 1;
+    int32 total = 2;
+}
+
+message GetFavorCountByPostReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+}
+message GetFavorCountByPostResponse {
+    int32 count = 1;
+}
+
+message AddShareReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2 [(validate.rules).int64.gt = 0];
+}
+message CancelShareReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2 [(validate.rules).int64.gt = 0];
+}
+message IsShareReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+    int64 uid = 2 [(validate.rules).int64.gt = 0];
+}
+message ListShareByPostReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+}
+
+message ListShareByPostResponse {
+    repeated Share shares = 1;
+    int32 total = 2;
+}
+message ListShareByUidReq {
+    int64 uid = 1 [(validate.rules).int64.gt = 0];
+}
+
+message ListShareByUidResponse {
+    repeated Share shares = 1;
+    int32 total = 2;
+}
+message GetShareCountByPostReq {
+    int64 post_id = 1 [(validate.rules).int64.gt = 0];
+}
+message GetShareCountByPostResponse {
+    int32 count = 1;
+}
+
+service FeedRpc {
+    rpc CreatePost(CreatePostReq) returns (CreatePostResponse);
+    rpc UpdatePost(UpdatePostReq) returns (UpdatePostResponse);
+    rpc GetPost(GetPostReq) returns (GetPostResponse);
+    rpc ListPostCard(ListPostCardReq) returns (ListPostCardResponse);
+    rpc ListPostCardByIds(ListPostCardByIdsReq) returns (ListPostCardByIdsResponse);
+    rpc ListPostCardByUid(ListPostCardByUidReq) returns (ListPostCardByUidResponse);
+    rpc ListTimelinePostCardWithTimestamp(ListTimelinePostCardWithTimestampReq) returns (ListTimelinePostCardWithTimestampResponse);
+    rpc DeletePost(DeletePostReq) returns (redbookpb.v1.EmptyResponse);
+    // rpc GetPostStat(GetPostStatReq) returns (GetPostStatResponse);
+    rpc ListVideoPost(ListVideoPostReq) returns (ListVideoPostResponse);
+
+    rpc AddFollow(AddFollowReq) returns (redbookpb.v1.EmptyResponse);
+    rpc CancelFollow(CancelFollowReq) returns (redbookpb.v1.EmptyResponse);
+    rpc IsFollow(IsFollowReq) returns (redbookpb.v1.BoolResponse);
+    rpc ListFollower(ListFollowerReq) returns (ListFollowerResponse);
+    rpc ListFollowee(ListFolloweeReq) returns (ListFolloweeResponse);
+
+    rpc AddLike(AddLikeReq) returns (redbookpb.v1.EmptyResponse);
+    rpc CancelLike(CancelLikeReq) returns (redbookpb.v1.EmptyResponse);
+    rpc IsLike(IsLikeReq) returns (redbookpb.v1.BoolResponse);
+    rpc ListLikeByPost(ListLikeByPostReq) returns (ListLikeByPostResponse);
+    rpc ListLikeByUid(ListLikeByUidReq) returns (ListLikeByUidResponse);
+    rpc GetLikeCountByPost(GetLikeCountByPostReq) returns (GetLikeCountByPostResponse);
+
+    rpc AddFavor(AddFavorReq) returns (redbookpb.v1.EmptyResponse);
+    rpc CancelFavor(CancelFavorReq) returns (redbookpb.v1.EmptyResponse);
+    rpc IsFavor(IsFavorReq) returns (redbookpb.v1.BoolResponse);
+    rpc ListFavorByPost(ListFavorByPostReq) returns (ListFavorByPostResponse);
+    rpc ListFavorByUid(ListFavorByUidReq) returns (ListFavorByUidResponse);
+    rpc GetFavorCountByPost(GetFavorCountByPostReq) returns (GetFavorCountByPostResponse);
+
+    rpc AddShare(AddShareReq) returns (redbookpb.v1.EmptyResponse);
+    rpc CancelShare(CancelShareReq) returns (redbookpb.v1.EmptyResponse);
+    rpc IsShare(IsShareReq) returns (redbookpb.v1.BoolResponse);
+    rpc ListShareByPost(ListShareByPostReq) returns (ListShareByPostResponse);
+    rpc ListShareByUid(ListShareByUidReq) returns (ListShareByUidResponse);
+    rpc GetShareCountByPost(GetShareCountByPostReq) returns (GetShareCountByPostResponse);
+
+}

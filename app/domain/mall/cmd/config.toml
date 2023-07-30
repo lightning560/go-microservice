@@ -1,0 +1,14 @@
+[mongo.dev.mall]
+	debug = true
+	dsn ="mongodb://root:password@127.0.0.1:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false"
+[redis.dev.mall]
+    debug = true # mio增加redis debug，打开后可以看到，配置名、地址、耗时、请求数据、响应数据
+    addr = "127.0.0.1:6379"
+    enableAccessInterceptor = true
+    enableAccessInterceptorReq = true
+    enableAccessInterceptorRes = true
+[mio.server.grpc.mall]
+    port = 59004
+[mio.server.governor]
+    host = "127.0.0.1"
+    port = 19004

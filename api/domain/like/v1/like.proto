@@ -1,0 +1,188 @@
+syntax = "proto3";
+
+option go_package = "redbook/api/domain/like/v1;likev1";
+option java_multiple_files = true;
+option java_package = "api.domain.like.v1";
+option java_outer_classname = "LikeProto";
+
+package domain.like.v1;
+
+import "third_party/proto/gogoproto/gogo.proto";
+import "third_party/proto/validate/validate.proto";
+
+
+message LikeReq{
+  int64 mid =1 [(gogoproto.jsontag) = "mid",(validate.rules).int64 = {gt: 0} ];
+  int64 oid =2 [(gogoproto.jsontag) ="oid"];
+  int64 bid =3 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];
+}
+message LikeReply{
+  string id = 1[(gogoproto.jsontag) = "id"];
+  int64 mid =2 [(gogoproto.jsontag) = "mid"];
+  int64 oid =3 [(gogoproto.jsontag) ="oid"];
+  int64 bid =4 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 5 [(gogoproto.jsontag) = "sid"];
+  int64 like= 6 [(gogoproto.jsontag) = "like"];
+  int64 create_at = 7 [(gogoproto.jsontag)="create_at"];
+  int64 update_at = 8 [(gogoproto.jsontag)="update_at"];
+}
+message LikesReq{
+  repeated LikeReq likesReq =1;
+}
+
+message LikesReply{
+  repeated LikeReply likesReply=1;
+}
+
+message SubjectLikesReq{
+  int64 mid =1 [(gogoproto.jsontag) = "mid"];
+  int64 oid =2 [(gogoproto.jsontag) ="oid"];
+  int64 bid =3 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];
+}
+message SubjectLikesReply{
+  repeated LikeReply subjectLikeList = 1;
+}
+
+message CountSubjectLikeReq{
+  int64 mid =1 [(gogoproto.jsontag) = "mid"];
+  int64 oid =2 [(gogoproto.jsontag) ="oid"];
+  int64 bid =3 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];
+}
+message CountSubjectLikeReply{
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];
+  int64 count = 5 [(gogoproto.jsontag) ="count"];
+}
+
+message CountObjectLikeReq{
+  int64 mid =1 [(gogoproto.jsontag) = "mid"];
+  int64 oid =2 [(gogoproto.jsontag) ="oid"];
+  int64 bid =3 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];
+}
+message CountObjectLikeReply{
+  int64 oid= 4 [(gogoproto.jsontag) = "oid"];
+  int64 count = 5 [(gogoproto.jsontag) ="count"];
+}
+
+message CountUserLikeReq{
+  int64 mid =1 [(gogoproto.jsontag) = "mid"];
+  int64 oid =2 [(gogoproto.jsontag) ="oid"];
+  int64 bid =3 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];}
+message CountUserLikeReply{
+  int64 mid= 4 [(gogoproto.jsontag) = "mid"];
+  int64 count = 5 [(gogoproto.jsontag) ="count"];
+}
+
+
+message UserLikesReq{
+  int64 mid =1 [(gogoproto.jsontag) ="mid"];
+}
+message UserLikesReply{
+  repeated LikeReply subjectLikeList = 1;
+}
+
+
+
+message AddLikeReq{
+  int64 mid =1 [(gogoproto.jsontag) = "mid",(validate.rules).int64 = {gt: 0} ];
+  int64 oid =2 [(gogoproto.jsontag) ="oid"];
+  int64 bid =3 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];
+}
+message AddLikeReply{}
+
+message CancelLikeReq{}
+message CancelLikeReply{}
+
+message DislikeReq{
+  int64 mid =1 [(gogoproto.jsontag) = "mid",(validate.rules).int64 = {gt: 0} ];
+  int64 oid =2 [(gogoproto.jsontag) ="oid"];
+  int64 bid =3 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];
+}
+message DislikeReply{
+  string id = 1[(gogoproto.jsontag) = "id"];
+  int64 mid =2 [(gogoproto.jsontag) = "mid"];
+  int64 oid =3 [(gogoproto.jsontag) ="oid"];
+  int64 bid =4 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 5 [(gogoproto.jsontag) = "sid"];
+  int64 dislike= 6 [(gogoproto.jsontag) = "dislike"];
+  int64 create_at = 7 [(gogoproto.jsontag)="create_at"];
+  int64 update_at = 8 [(gogoproto.jsontag)="update_at"];
+}
+message DislikesReq{
+  repeated DislikeReq dislikesReq =1;
+}
+message DislikesReply{
+  repeated DislikesReply DislikeReply =1 [(gogoproto.jsontag) = "DislikeReply"];
+}
+
+message SubjectDislikesReq{
+  int64 mid =1 [(gogoproto.jsontag) = "mid"];
+  int64 oid =2 [(gogoproto.jsontag) ="oid"];
+  int64 bid =3 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];
+}
+message SubjectDislikesReply{
+  repeated LikeReply SubjectLikeList = 1;
+}
+
+message UserDislikesReq{
+  int64 mid =1 [(gogoproto.jsontag) = "mid"];
+  int64 oid =2 [(gogoproto.jsontag) ="oid"];
+  int64 bid =3 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];
+}
+message UserDislikesReply{}
+
+message CountSubjectDislikeReq{
+  int64 mid =1 [(gogoproto.jsontag) = "mid"];
+  int64 oid =2 [(gogoproto.jsontag) ="oid"];
+  int64 bid =3 [(gogoproto.jsontag) ="bid"];
+  int64 sid= 4 [(gogoproto.jsontag) = "sid"];
+}
+message CountSubjectDislikeReply{}
+
+message CountObjectDislikeReq{}
+message CountObjectDislikeReply{}
+
+
+message CountUserDislikeReq{}
+message CountUserDislikeReply{}
+
+message AddDislikeReq{}
+message AddDislikeReply{}
+
+message CancelDislikeReq{}
+message CancelDislikeReply{}
+
+service Like {
+  //  like read
+  rpc Like(LikeReq) returns (LikeReply);
+  rpc Likes(LikesReq)returns (LikesReply);
+  rpc SubjectLikes(SubjectLikesReq) returns(SubjectLikesReply);
+  rpc UserLikes(UserLikesReq) returns(UserLikesReply);
+
+  rpc CountObjectLike (CountObjectLikeReq) returns (CountObjectLikeReply);
+  rpc CountUserLike(CountUserLikeReq) returns(CountUserLikeReply);
+  rpc CountSubjectLike(CountSubjectLikeReq) returns(CountSubjectLikeReply);
+  //  like write
+  rpc AddLike(AddLikeReq) returns(AddLikeReply);
+  rpc CancelLike(CancelLikeReq) returns(CancelLikeReply);
+// dislike read
+  rpc Dislike(DislikeReq) returns (DislikeReply);
+  rpc Dislikes(DislikesReq)returns (DislikesReply);
+  rpc SubjectDisikes(SubjectLikesReq) returns(SubjectDislikesReply);
+  rpc UserDislikes(UserDislikesReq) returns(UserDislikesReply);
+
+  rpc CountObjectDislike (CountObjectDislikeReq) returns (CountObjectDislikeReply);
+  rpc CountUserDislike(CountUserDislikeReq) returns(CountUserDislikeReply);
+  rpc CountSubjectDislike(CountSubjectDislikeReq) returns(CountSubjectDislikeReply);
+  //  dislike write
+  rpc AddDislike(AddDislikeReq) returns(AddDislikeReply);
+  rpc CancelDislike(CancelLikeReq) returns(CancelDislikeReply);
+}
